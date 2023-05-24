@@ -11,7 +11,7 @@ base-image: ghcr.io/ublue-os/silverblue-main
 # builds with the tag (all uBlue images do this).
 fedora-version: 38
 # This description will be visible in the container metadata.
-description: A starting point for further customization of uBlue images. Make your own! https://ublue.it/making-your-own/
+description: A minor customization of uBlue. Make your own! https://ublue.it/making-your-own/
 # These scripts will be executed during the container build.
 # Place scripts in the "scripts/" dir and put the corresponding filenames here.
 # Any files that aren't listed here won't be executed automatically, which
@@ -54,10 +54,12 @@ rpm:
     # other spins. You can remove if you aren't using yafti, but many native
     # apps and binaries require it, so it's a good idea to always include it
     # if you ever download or compile any custom software on your machine.
-    - libadwaita
+    # - libadwaita
     # Add your own below:
     # Example:
     # - tilix
+    - podman-docker
+    - wireguard-tools
   # These RPMs will be removed from the system image. This step happens during
   # image build, BEFORE installing custom RPMs (from the "rpm.install" category).
   remove:
@@ -77,6 +79,6 @@ firstboot:
   # Alternatively, if you've disabled "yafti", you can still install these via
   # the "just setup-flatpaks" command from our "custom.just" template file.
   # This is just an example selection:
-  flatpaks:
-    - io.github.celluloid_player.Celluloid
-    - org.kde.krita
+  # flatpaks:
+  #   - io.github.celluloid_player.Celluloid
+  #   - org.kde.krita
