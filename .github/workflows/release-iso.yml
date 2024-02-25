@@ -1,46 +1,82 @@
+name: Generate ISO
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+env:
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+  R2_BUCKET: R2:silver-ublue
 on:
   push:
     paths:
       - "boot_menu.yml"
       - ".github/workflows/release-iso.yml"
+  schedule:
+    - cron: "30 17 * * SUN"
   workflow_dispatch:
 
-name: release-iso
 jobs:
   release-iso:
     name: Generate and Release ISOs
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-    container:
-      image: fedora:39
-      options: --privileged
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        image_name: [silver-ublue]
+        version: [39]
+        tag: [latest]
     steps:
-      - uses: actions/checkout@v4
-      - name: Generate ISO
-        uses: ublue-os/isogenerator-old@v2.3.1
-        id: isogenerator
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+
+      - name: Build ISOs
+        uses: jasonn3/build-container-installer@main
+        id: build
+        env:
+          ISO: ${{ matrix.image_name }}-${{ matrix.tag }}-${{ matrix.version}}
+          KEY: https://github.com/ublue-os/akmods/raw/main/certs/public_key.der
         with:
-          image-name: ${{ github.event.repository.name }}
-          installer-repo: releases
-          installer-major-version: 39
-          boot-menu-path: boot_menu.yml
-      - name: install github CLI
-        run: |
-          sudo dnf install 'dnf-command(config-manager)' -y
-          sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-          sudo dnf install gh -y
-      - name: Upload ISO
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          if gh release list -R ${{ github.repository_owner }}/${{ github.event.repository.name }} | grep "auto-iso"; then
-            gh release view auto-iso -R ${{ github.repository_owner }}/${{ github.event.repository.name }} --json assets -q .assets[].name | xargs --no-run-if-empty -L 1 gh release delete-asset auto-iso -R ${{ github.repository_owner }}/${{ github.event.repository.name }}
-            gh release upload auto-iso ${{ steps.isogenerator.outputs.iso-path }} -R ${{ github.repository_owner }}/${{ github.event.repository.name }} --clobber
-          else
-            gh release create auto-iso ${{ steps.isogenerator.outputs.iso-path }} -t ISO -n "This is an automatically generated ISO release." -R ${{ github.repository_owner }}/${{ github.event.repository.name }}
-          fi
-      - name: Upload SHA256SUM
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: gh release upload auto-iso ${{ steps.isogenerator.outputs.sha256sum-path }} -R ${{ github.repository_owner }}/${{ github.event.repository.name }} --clobber
+          arch: x86_64
+          image_name: ${{ matrix.image_name }}
+          image_repo: ${{ env.IMAGE_REGISTRY }}
+          variant: 'Silverblue'
+          version: ${{ matrix.version }}
+          image_tag: ${{ matrix.tag }}
+          secure_boot_key_url: ${{ env.KEY }}
+          enrollment_password: 'ublue-os'
+          iso_name: ${{ env.ISO }}
+
+      - name: Upload ISOs and Checksum to Job Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.build.outputs.iso_name }}
+          path: |
+            ${{ steps.build.outputs.iso_path }}
+            ${{ steps.build.outputs.iso_path }}-CHECKSUM
+          if-no-files-found: error
+          retention-days: 0
+          compression-level: 0
+          overwrite: true
+
+#     - name: Upload ISOs and Checksum to R2
+#       # if: github.event_name == 'workflow_dispatch'
+#       shell: bash
+#       env:
+#         RCLONE_CONFIG_R2_TYPE: s3
+#         RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+#         RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+#         RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY }}
+#         RCLONE_CONFIG_R2_REGION: auto
+#         RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+#         RCLONE_CONFIG_R2_ACL: public-read
+#         SOURCE_ISO: ${{ steps.build.outputs.iso_path }}
+#         SOURCE_ISO_CHECKSUM: ${{ steps.build.outputs.iso_path }}-CHECKSUM
+#       run: |
+#         curl -LSs https://rclone.org/install.sh | sudo bash
+#         cd ${{ steps.build.outputs.output-directory }}
+#         rclone copy $SOURCE_ISO ${{ env.R2_BUCKET }}
+#         rclone copy $SOURCE_ISO_CHECKSUM ${{ env.R2_BUCKET }}

@@ -1,0 +1,30 @@
+FROM quay.io/toolbx-images/alpine-toolbox:edge
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with toolbox or distrobox" \
+      summary="A cloud-native terminal experience" \
+      maintainer="dperson@gmail.com"
+
+COPY .github/extra-packages /tmp/
+RUN apk update && \
+    apk upgrade && \
+    grep -v '^#' /tmp/extra-packages | xargs apk add && \
+    awk '/^#testing/ {print $2}' /tmp/extra-packages | xargs apk add \
+          --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ && \
+    rm /tmp/extra-packages && \
+    curl -L https://github.com/NoahTheDuke/vim-just/raw/main/syntax/just.vim \
+          -o /usr/share/nvim/runtime/syntax/just.vim && \
+    ln -frs /bin/sh /usr/bin/sh && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/appman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/distrobox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker-compose && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gext && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gsettings && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/just && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/toolbox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/transactional-update &&\
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
