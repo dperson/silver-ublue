@@ -1,48 +1,276 @@
 # image will be published to ghcr.io/<user>/<name>
 name: silver-ublue
 # description will be included in the image's metadata
-description: Custom silver/u-blue build
+description: Custom silver/ublue build
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 39 # latest is also supported if you want new updates ASAP
+image-version: 40 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  - type: akmods
+    akmods: # List of all available kernel modules & versions/tags are here:
+            # https://github.com/ublue-os/akmods
+      - evdi
+      - framework-laptop
+
   - type: files
     files:
-      - usr: /usr
-          # copies config/files/usr into your image's /usr.
-          # put configuration files you want in /etc/ on a booted system 
-          # in /usr/etc/ in the image. read more in files module reference.
+      - usr: /usr # copies config/files/usr into your image's /usr.
+                  # put configuration files you want in /etc/ on a booted system
+                  # in /usr/etc/. read more in files module reference.
 
   - type: rpm-ostree
-    repos: # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+    repos:
+      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/karmab/kcli/repo/fedora-%OS_VERSION%/karmab-kcli-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-%OS_VERSION%/ublue-os-staging-fedora-%OS_VERSION%.repo
+      - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+
+  - type: containerfile
+    snippets:
+      # k8s tools
+      - COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
+      - COPY --from=cgr.dev/chainguard/flux:latest /usr/bin/flux /usr/bin/flux
+      - COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
+      - COPY --from=cgr.dev/chainguard/ko:latest /usr/bin/ko /usr/bin/ko
+      - COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl
+              /usr/bin/kubectl
+      - COPY --from=cgr.dev/chainguard/minio-client:latest /usr/bin/mc
+              /usr/bin/mc
+      # install Ptyxis
+      # remove power-profiles-daemon as we're replacing it with tuned
+      # install ProtonMail
+      - RUN rpm-ostree override replace --experimental --from
+              repo=copr:copr.fedorainfracloud.org:ublue-os:staging
+              vte291 vte-profile &&
+              rpm-ostree install ptyxis || true &&
+              rpm-ostree override remove power-profiles-daemon &&
+              rpm-ostree install
+              https://proton.me/download/mail/linux/ProtonMail-desktop-beta.rpm
+              && rm -rf /var/*
+
+  - type: rpm-ostree
     install:
       # - micro
       # - starship
+      - bat
+      - btop
+      - cage # waydroid
+      - cockpit-bridge
+      - cockpit-machines
+      - cockpit-networkmanager
+      - cockpit-ostree
+      - cockpit-pcp
+      - cockpit-podman
+      - cockpit-selinux
+      - cockpit-storaged
+      - cockpit-system
+      # - devpod # not in f40 yet
+      - docker-compose
+      # - edk2-tools #quickemu
+      - eza
+      - fastfetch
+      - fd-find
+      - gnome-shell-extension-logo-menu
+      - gh
+      - git-delta
+      - GraphicsMagick
+      - iotop-c
+      - kcli
+      # - lsb #quickemu
+      - micropipenv
+      - nautilus-open-any-terminal
+      - neovim
+      - nmap
+      - nodejs-npm
+      - podman-docker
+      - podman-tui
+      - powertop
+      - python3-eyed3
+      - python3-pip
+      - python3-virtualenv
+      - rclone
+      - restic
+      - ripgrep
+      - systemd-container
+      - tailscale
+      - tuned
+      - tuned-ppd
+      - tuned-utils
+      - tuned-profiles-atomic
+      - waydroid
+      - wireguard-tools
+      - wlr-randr
+      # - xrandr #quickemu
+      - ykpers
+      - yt-dlp
+      - yubikey-manager
+      - zoxide
+      - zsh
     remove:
-      # example: removing firefox (in favor of the flatpak)
-      # "firefox" is the main package, "firefox-langpacks" is a dependency
-      # - firefox
-      # - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+      - firefox # default firefox removed in favor of flatpak
+      - firefox-langpacks # langpacks needs to also be removed due to dep issues
+      - gnome-tour
 
   - type: default-flatpaks
-    notify: true # Send notification after install/uninstall is finished (true/false)
+    notify: true # Send notification after install/uninstall is finished (bool)
     system:
       # If no repo information is specified, Flathub will be used by default
       # repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       # repo-name: flathub
-      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
+      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's
+      #     user-facing name in graphical frontends like GNOME Software
       install:
-        # - org.mozilla.firefox
         # - org.gnome.Loupe
-        # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
-        # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
-        # only normal flatpak applications are (like Floorp Lightning web browser in this example).
+        # - one.ablaze.floorp//lightning  # This is an example of flatpak which
+                                          # has multiple branches in selection
+                                          # (flatpak//branch).
+        # Flatpak runtimes are not supported (ie org.winehq.Wine//stable-23.08),
+        # only normal flatpak applications are (ie Floorp Lightning web browser
+        # in this example).
         # Installing different branches of the same Flatpak is not supported.
+        - com.github.johnfactotum.Foliate # Foliate (eBook Reader)
+        - com.mattjakeman.ExtensionManager
+        - io.github.celluloid_player.Celluloid # Celluloid (Media Player)
+        - org.gnome.baobab # Disk Usage Analyzer
+        - org.gnome.Calculator
+        - org.gnome.Calendar
+        - org.gnome.Characters
+        - org.gnome.clocks
+        - org.gnome.Connections
+        - org.gnome.Contacts
+        - org.gnome.Evince # Document Viewer
+        - org.gnome.FileRoller
+        - org.gnome.Firmware
+        - org.gnome.font-viewer
+        - org.gnome.Logs
+        - org.gnome.Loupe # Image Viewer
+        - org.gnome.Maps
+        - org.gnome.meld # Meld (Merge Text)
+        - org.gnome.Mines
+        - org.gnome.NautilusPreviewer # Sushi (Nautilus Previewer)
+        - org.gnome.NetworkDisplays
+        - org.gnome.Photos
+        - org.gnome.Rhythmbox3
+        - org.gnome.SimpleScan # Document Scanner
+        - org.gnome.Snapshot # Camera
+        - org.gnome.Sudoku
+        - org.gnome.TextEditor
+        - org.gnome.Weather
+        # System Apps
+        - app.drey.KeyRack
+        - com.github.tchx84.Flatseal # Flatpak Permission Manager
+        - io.github.flattool.Warehouse
+        - io.github.prateekmedia.appimagepool # AppImage Installer
+        - io.gitlab.adhami3310.Impression # Media Writer
+        - org.cockpit_project.CockpitClient
+        - org.gnome.DejaDup # Deja Dup Backups
+        - org.gustavoperedo.FontDownloader
+        # Web Browsers
+        # - com.brave.Browser # Brave
+        - org.gnome.Epiphany # GNOME Web
+        - com.google.Chrome
+        # - com.microsoft.Edge
+        - org.mozilla.firefox
+        # - com.opera.Opera
+        - re.sonny.Junction
+        - re.sonny.Tangram
+        - com.vivaldi.Vivaldi
+        # Communications
+        - com.viber.Viber
+        - dev.geopjr.Tuba # Mastodon
+        - org.gnome.Fractal # Element Client
+        - org.signal.Signal
+        # Gaming
+        - xyz.armcord.ArmCord # Discord
+        # - com.heroicgameslauncher.hgl # Heroic Games Launcher
+        - com.usebottles.bottles
+        - com.valvesoftware.Steam
+        - com.valvesoftware.Steam.Utility.steamtinkerlaunch
+        - net.davidotek.pupgui2 # Proton Updater for Steam
+        - org.freedesktop.Platform.VulkanLayer.gamescope
+        - org.freedesktop.Platform.VulkanLayer.MangoHud//22.08 # MangoHUD
+        # Media
+        - com.github.geigi.cozy # Cozy (Nature/White Noise)
+        - de.haeckerfelix.Shortwave # Shortwave (Internet Radio)
+        - io.freetubeapp.FreeTube # FreeTube (YouTube)
+        - io.github.Pithos # Pithos (Pandora)
+        - org.videolan.VLC # VLC (Media Player)
+        # Office
+        - com.calibre_ebook.calibre # Calibre (eBook Editor)
+        - com.github.IsmaelMartinez.teams_for_linux
+        - com.slack.Slack
+        - com.vixalien.sticky
+        - io.github.mrvladus.List # List (ToDos)
+        - md.obsidian.Obsidian
+        - org.libreoffice.LibreOffice
+        # - org.mozilla.Thunderbird
+        # - org.onlyoffice.desktopeditors # OnlyOffice
+        - org.standardnotes.standardnotes
+        - us.zoom.Zoom
+        # Development
+        - ca.desrt.dconf-editor
+        - com.github.marhkb.Pods
+        - io.podman_desktop.PodmanDesktop
+        - org.gnome.Boxes
+        - org.gnome.Builder
+        - re.sonny.Commit # Commit (Editor)
+        - re.sonny.Workbench # Workbench (GTK4/libadwaita)
+        # Graphics
+        - com.github.maoschanz.drawing
+        # - org.darktable.Darktable
+        - org.gimp.GIMP
+        # - org.inkscape.Inkscape
+        # - org.kde.krita
+        # Media Production
+        - fr.handbrake.ghb # Handbrake
+        - org.audacityteam.Audacity
+        - org.gnome.gitlab.YaLTeR.VideoTrimmer
+        # - org.kde.kdenlive
+        # - org.olivevideoeditor.Olive
+        # - org.pitivi.Pitivi
+        # Streaming
+        # - com.feaneron.Boatswain # Boatswain for Streamdeck
+        # - com.obsproject.Studio # OBS Studio
+        # - com.obsproject.Studio.OBSVkCapture # VkCapture for OBS
+        # - com.obsproject.Studio.Plugin.Gstreamer # Gstreamer for OBS
+        # - com.obsproject.Studio.Plugin.GStreamerVaapi # Gstreamer VAAPI for OBS
+        # Utilities
+        - com.ekonomikas.merkato # Merkato (Stock Tracker)
+        - com.protonvpn.www # Proton VPN
+        - de.haeckerfelix.Fragments
+        - org.keepassxc.KeePassXC
       remove:
         # - org.gnome.eog
 
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+    # A flatpak repo can also be added without having to install flatpaks,
+    # as long as one of the repo- fields is present
+    user:
+      # repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+      # repo-name: flathub
+
+  - type: gschema-overrides
+    include:
+      - ublue.gschema.override
+
+  - type: systemd
+    system:
+      enabled:
+        - dconf-update.service
+        - podman.socket
+        - rpm-ostree-countme.service
+        - swtpm-workaround.service
+        - tailscaled.service
+        - tuned.service
+        - ublue-system-flatpak-manager.service
+
+  - type: script
+    scripts:
+      - fonts.sh  # installs the desired fonts
+      - misc.sh   # misc tweaks to the system
+
+  - type: signing # this sets up the proper policy & signing files for signed
+                  # images to work fully

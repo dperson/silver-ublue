@@ -1,0 +1,96 @@
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/bluefin/spring-dynamic.xml'
+picture-uri-dark='file:///usr/share/backgrounds/bluefin/spring-dynamic.xml'
+picture-options='zoom'
+primary-color='000000'
+secondary-color='FFFFFF'
+
+[org/gnome/desktop/interface]
+clock-format="24h"
+clock-show-weekday=true
+color-scheme="prefer-dark"
+enable-hot-corners=false
+font-antialiasing="rgba"
+gtk-enable-primary-paste=true
+gtk-key-theme="Emacs"
+gtk-theme="Adwaita-dark"
+monospace-font-name="MonaspiceKr Nerd Font 11"
+show-battery-percentage=true
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=true
+
+[org/gnome/desktop/wm/preferences]
+action-middle-click-titlebar="lower"
+button-layout="appmenu:minimize,maximize,close"
+focus-mode="sloppy"
+num-workspaces='4'
+titlebar-font="Inter Bold 11"
+
+[org/gnome/desktop/wm/keybindings]
+maximize-horizontally = ['<Alt><Super>Down']
+maximize-vertically = ['<Alt><Super>Up']
+raise-or-lower = ['<Control><Super>Up']
+switch-to-workspace-1 = ['<Control><Alt>1']
+switch-to-workspace-2 = ['<Control><Alt>2']
+switch-to-workspace-3 = ['<Control><Alt>3']
+switch-to-workspace-4 = ['<Control><Alt>4']
+
+[org/gnome/desktop/peripherals/mouse]
+natural-scroll=true
+
+[org/gnome/desktop/peripherals/touchpad]
+tap-to-click=false
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Control><Alt>t'
+command='ptyxis'
+name='Ptyxis terminal'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Control><Shift>Escape'
+command="flatpak run io.missioncenter.MissionCenter"
+name='mission-center'
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+home=['<Super>e']
+
+[org/gtk/gtk4/settings/file-chooser]
+sort-directories-first=true
+
+[org/gnome/mutter]
+dynamic-workspaces=false
+experimental-features=['scale-monitor-framebuffer','variable-refresh-rate']
+
+[org/gnome/software]
+allow-updates=false
+download-updates=false
+download-updates-notify=false
+
+[com/github/stunkymonkey/nautilus-open-any-terminal]
+terminal='ptyxis'
+keybindings=''
+new-tab=false
+flatpak='off'
+
+[org/gnome/shell/extensions/Logo-menu]
+menu-button-icon-image=1
+menu-button-terminal='xdg-terminal-exec'
+menu-button-system-monitor='flatpak run io.missioncenter.MissionCenter'
+menu-button-extensions-app='com.mattjakeman.ExtensionManager.desktop'
+menu-button-software-center='gnome-software'
+show-activities-button=true
+show-lockscreen=false
+show-power-option=false
+show-gamemode=false
+hide-forcequit=true
+show-boxbuddy=true
+
+[org/gnome/Ptyxis]
+audible-bell=false
+window-size = (100, 33)
+
+[org/gnome/Ptyxis/Shortcuts]
+close-tab='<Shift><Control>w'
+reset='<Shift><Control>r'

@@ -1,0 +1,87 @@
+name: Generate ISO
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+env:
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+  R2_BUCKET: R2:silver-ublue
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build-iso:
+    name: Generate and Release ISOs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    container:
+      image: fedora:${{ matrix.version }}
+      options: "--privileged"
+      volumes:
+        - "/:/host"
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [silver-ublue]
+        version: [40]
+        tag: [latest]
+    steps:
+      - name: Build ISOs
+        uses: ublue-os/isogenerator@1.0.9
+        id: build
+        env:
+          KEY: https://github.com/ublue-os/akmods/raw/main/certs/public_key.der
+        with:
+          arch: x86_64
+          image_name: ${{ matrix.name }}
+          image_repo: ${{ env.IMAGE_REGISTRY }}
+          variant: 'Silverblue'
+          version: ${{ matrix.version }}
+          image_tag: ${{ matrix.tag }}
+          secure_boot_key_url: ${{ env.KEY }}
+          enrollment_password: 'ublue-os'
+
+      - name: Build ISOs sha256sums
+        shell: bash
+        env:
+          ISO: ${{ matrix.name }}-${{ matrix.tag }}.iso
+        run: |
+          cd ${{ steps.build.outputs.output-directory }}
+          sha256sum $ISO >$ISO.sha256sum
+
+      - name: Upload ISOs and Checksum to Job Artifacts
+        uses: actions/upload-artifact@v4
+        env:
+          ISO: ${{ matrix.name }}-${{ matrix.tag }}.iso
+        with:
+          name: ${{ matrix.name }}-${{ matrix.tag }}-${{ matrix.version}}
+          path: |
+            ${{ steps.build.outputs.output-directory }}/${{ env.ISO }}
+            ${{ steps.build.outputs.output-directory }}/${{ env.ISO }}.sha256sum
+          if-no-files-found: error
+          retention-days: 0
+          compression-level: 0
+          overwrite: true
+
+      - name: Upload ISOs and Checksum to R2
+        # if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          RCLONE_CONFIG_R2_ACL: public-read
+          ISO: ${{ matrix.name }}-${{ matrix.tag }}.iso
+        run: |
+          sudo dnf install -y unzip
+          curl -LSs https://rclone.org/install.sh | sudo bash
+          cd ${{ steps.build.outputs.output-directory }}
+          rclone copy $ISO ${{ env.R2_BUCKET }}
+          rclone copy $ISO.sha256sum ${{ env.R2_BUCKET }}
