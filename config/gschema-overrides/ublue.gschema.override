@@ -1,0 +1,67 @@
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/gnome-background-properties/ublue-lagoon.xml
+picture-uri-dark='file:///usr/share/gnome-background-properties/ublue-lagoon.xml
+picture-options='zoom'
+primary-color='000000'
+secondary-color='FFFFFF'
+
+[org/gnome/desktop/input-sources]
+xkb-options=['caps:ctrl_modifier']
+
+[org/gnome/desktop/interface]
+enable-hot-corners=false
+font-antialiasing="rgba"
+font-name="Inter 11"
+document-font-name="Inter 11"
+#monospace-font-name="Ubuntu Mono 18"
+gtk-key-theme="Emacs"
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=true
+
+[org/gnome/desktop/wm/preferences]
+button-layout=":minimize,maximize,close"
+num-workspaces='4'
+titlebar-font="Inter Bold 11"
+
+[org/gnome/mutter]
+experimental-features=['scale-monitor-framebuffer']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Control><Alt>t'
+command='xdg-terminal-exec'
+name='Ptyxis'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Control><Shift>Escape'
+command="flatpak run io.missioncenter.MissionCenter"
+name='mission-center'
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+
+[org/gnome/settings-daemon/plugins/power]
+power-button-action='interactive'
+
+[com/github/stunkymonkey/nautilus-open-any-terminal]
+terminal='ptyxis'
+keybindings=''
+new-tab=false
+flatpak='off'
+
+[org/gtk/settings/file-chooser]
+sort-directories-first=true
+
+[org/gtk/gtk4/settings/file-chooser]
+sort-directories-first=true
+
+[org/gnome/mutter]
+experimental-features=['variable-refresh-rate','scale-monitor-framebuffer']
+
+[org/gnome/software]
+allow-updates=false
+download-updates=false
+download-updates-notify=false
