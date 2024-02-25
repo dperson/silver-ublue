@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Stargazing</name>
+    <filename>/usr/share/backgrounds/star_gazing.webp</filename>
+    <filename-dark>/usr/share/backgrounds/star_gazing.webp</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#5F7491</pcolor>
+    <scolor>#332829</scolor>
+  </wallpaper>
+</wallpapers>
