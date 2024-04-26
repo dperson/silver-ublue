@@ -37,7 +37,7 @@ jobs:
           #- recipe-beta.yml
     steps: # the build is fully handled by the reusable github action
       - name: Build Custom Image
-        uses: dperson/bluebuild-action@v1.1
+        uses: dperson/bluebuild-action@v1.3
         with:
           recipe: ${{ matrix.recipe }}
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
