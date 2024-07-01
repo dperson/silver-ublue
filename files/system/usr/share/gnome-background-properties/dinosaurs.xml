@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Bluefin</name>
+    <filename>/usr/share/backgrounds/chicken.webp</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#5F7491</pcolor>
+    <scolor>#332829</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Autumn Dynamic</name>
+    <filename>/usr/share/backgrounds/bluefin/autumn-dynamic.xml</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#2A1413</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Autumn</name>
+    <filename>/usr/share/backgrounds/bluefin/AutumnDay.webp</filename>
+    <filename-dark>/usr/share/backgrounds/bluefin/AutumnNight.webp</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#2A1413</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Spring Dynamic</name>
+    <filename>/usr/share/backgrounds/bluefin/spring-dynamic.xml</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#3A663F</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Spring</name>
+    <filename>/usr/share/backgrounds/bluefin/SpringDay.webp</filename>
+    <filename-dark>/usr/share/backgrounds/bluefin/SpringNight.webp</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#3A663F</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Summer Dynamic</name>
+    <filename>/usr/share/backgrounds/bluefin/summer-dynamic.xml</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#F99F53</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Summer</name>
+    <filename>/usr/share/backgrounds/bluefin/SummerDay.webp</filename>
+    <filename-dark>/usr/share/backgrounds/bluefin/SummerNight.webp</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#F99F53</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Winter Dynamic</name>
+    <filename>/usr/share/backgrounds/bluefin/winter-dynamic.xml</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#8198A7</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Bluefin - Winter</name>
+    <filename>/usr/share/backgrounds/bluefin/WinterDay.webp</filename>
+    <filename-dark>/usr/share/backgrounds/bluefin/WinterNight.webp</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#8198A7</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+</wallpapers>
