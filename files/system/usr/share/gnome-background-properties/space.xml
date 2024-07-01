@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper>
+    <name>uBlue Lagoon</name>
+    <filename>/usr/share/backgrounds/lagoon.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#000000</pcolor>
+    <scolor>#ffffff</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Stargazing</name>
+    <filename>/usr/share/backgrounds/star_gazing.webp</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#5F7491</pcolor>
+    <scolor>#332829</scolor>
+  </wallpaper>
+</wallpapers>

@@ -1,0 +1,4 @@
+#!/usr/bin/env -S bash
+
+sudo /usr/bin/bash -c \
+      'echo add >/sys/devices/virtual/input/input*/event*/uevent'
