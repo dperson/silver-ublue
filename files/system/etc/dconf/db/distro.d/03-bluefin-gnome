@@ -1,0 +1,76 @@
+# Relocatable schemas are located here in dconf
+# Some Gnome extensions don't ship gschema XML, so their settings also need to go in dconf
+
+[org/gnome/desktop/background]
+picture-options='zoom'
+picture-uri-dark='file:///usr/share/backgrounds/bluefin/10-Oct-dynamic.xml'
+picture-uri='file:///usr/share/backgrounds/bluefin/10-Oct-dynamic.xml'
+primary-color='000000'
+secondary-color='FFFFFF'
+
+[org/gnome/desktop/interface]
+clock-format="24h"
+clock-show-weekday=true
+color-scheme="prefer-dark"
+document-font-name="Inter 11"
+enable-hot-corners=false
+font-antialiasing="rgba"
+font-name="Inter 11"
+gtk-enable-primary-paste=true
+gtk-key-theme="Emacs"
+monospace-font-name="CaskaydiaCove Nerd Font Propo 11"
+show-battery-percentage=true
+
+[org/gnome/desktop/peripherals/mouse]
+natural-scroll=true
+
+[org/gnome/desktop/peripherals/touchpad]
+tap-to-click=false
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=true
+
+[org/gnome/desktop/search-providers]
+enabled=['org.gnome.Contacts.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.Weather.desktop', 'org.gnome.Photos.desktop']
+
+[org/gnome/desktop/wm/keybindings]
+maximize-horizontally = ['<Alt><Super>Down']
+maximize-vertically = ['<Alt><Super>Up']
+raise-or-lower = ['<Control><Super>Up']
+switch-to-workspace-1 = ['<Control><Alt>1']
+switch-to-workspace-2 = ['<Control><Alt>2']
+switch-to-workspace-3 = ['<Control><Alt>3']
+switch-to-workspace-4 = ['<Control><Alt>4']
+
+[org/gnome/desktop/wm/preferences]
+action-middle-click-titlebar="lower"
+button-layout="appmenu:minimize,maximize,close"
+focus-mode="sloppy"
+num-workspaces='4'
+titlebar-font="Inter Bold 11"
+
+[org/gnome/mutter]
+check-alive-timeout=uint32 20000
+dynamic-workspaces=false
+experimental-features=['scale-monitor-framebuffer','variable-refresh-rate']
+
+[org/gnome/shell]
+enabled-extensions=['background-logo@fedorahosted.org', 'appindicatorsupport@rgcjonas.gmail.com', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'clipboard-history@alexsaveau.dev', 'dash-to-dock@micxgx.gmail.com', 'gTile@vibou', 'just-perfection-desktop@just-perfection', 'tailscale@joaophi.github.com', 'logomenu@aryan_k', 'Bluetooth-Battery-Meter@maniacx.github.com', 'rounded-window-corners@fxgn', 'blur-my-shell@aunetx']
+favorite-apps=['org.mozilla.firefox.desktop', 'com.vivaldi.Vivaldi.desktop', 'org.gnome.Epiphany.desktop', 'dev.geopjr.Tuba.desktop', 'io.freetubeapp.FreeTube.desktop', 'im.dino.Dino.desktop', 'de.schmidhuberj.Flare.desktop', 'proton-mail.desktop', 'proton-pass.desktop', 'com.protonvpn.www.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.Ptyxis.desktop']
+
+[org/gnome/shell/weather]
+automatic-location=true
+
+[org/gnome/software]
+allow-updates=false
+download-updates=false
+download-updates-notify=false
+
+[org/gnome/system/location]
+enabled=true
+
+[org/gnome/tweaks]
+show-extensions-notice=false
+
+[org/gtk/gtk4/settings/file-chooser]
+sort-directories-first=true
