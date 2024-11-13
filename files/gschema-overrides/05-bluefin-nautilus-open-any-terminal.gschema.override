@@ -1,0 +1,7 @@
+# Relocatable schemas are located here in dconf
+# Some Gnome extensions don't ship gschema XML, so their settings also need to go in dconf
+
+[com/github/stunkymonkey/nautilus-open-any-terminal]
+keybindings='<Control><Shift>t'
+new-tab=true
+terminal='xdg-terminal-exec'
