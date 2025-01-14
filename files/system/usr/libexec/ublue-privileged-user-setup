@@ -1,0 +1,18 @@
+#!/usr/bin/env -S bash
+
+# Enable NTP
+timedatectl set-ntp true
+
+# Allow Tailscale Control
+tailscale set --operator="$(getent passwd "$PKEXEC_UID" | cut -d: -f1)"
+
+# Allow libvirt access
+for user in $(getent group wheel | cut -d ":" -f 4 | tr ',' '\n'); do
+  usermod -aG libvirt "$user"
+done
+
+# Allow input access
+for user in $(getent group wheel | cut -d ":" -f 4 | tr ',' '\n'); do
+  usermod -aG input "$user"
+  usermod -aG uinput "$user"
+done
