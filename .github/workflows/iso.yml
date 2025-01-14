@@ -1,0 +1,79 @@
+name: Generate ISO
+on:
+  workflow_call:
+  workflow_dispatch: # allow manually triggering builds
+
+jobs:
+  build-iso:
+    name: Generate and Release ISOs
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [silver-ublue]
+        version: [42]
+        tag: [latest]
+    steps:
+      - name: Build ISOs
+        uses: jasonn3/build-container-installer@v1.2.4
+        id: build
+        env:
+          KEY: https://github.com/ublue-os/akmods/raw/main/certs/public_key.der
+        with:
+          arch: x86_64
+          enable_cache_dnf: "false"
+          enable_cache_skopeo: "false"
+          enrollment_password: 'ublue-os'
+          image_name: ${{ matrix.name }}
+          image_repo: ghcr.io/${{ github.repository_owner }}
+          image_tag: ${{ matrix.tag }}
+          iso_name: ${{ matrix.name }}-${{ matrix.tag }}.iso
+          secure_boot_key_url: ${{ env.KEY }}
+          variant: 'Silverblue'
+          version: ${{ matrix.version }}
+
+      - name: Move ISOs to Upload Directory
+        id: upload-directory
+        env:
+          ISO: ${{ steps.build.outputs.iso_path }}/${{ steps.build.outputs.iso_name }}
+        shell: bash
+        run: |
+          ISO_UPLOAD_DIR=${{ github.workspace }}/upload
+          mkdir ${ISO_UPLOAD_DIR}
+          mv ${ISO} ${ISO_UPLOAD_DIR}
+          mv ${ISO}-CHECKSUM ${ISO_UPLOAD_DIR}/${ISO}.sha256sum
+          echo "iso-upload-dir=${ISO_UPLOAD_DIR}" >>$GITHUB_OUTPUT
+
+      - name: Upload ISOs and Checksum to Job Artifacts
+        uses: actions/upload-artifact@v4
+        env:
+          ISO: ${{ steps.build.outputs.iso_name }}
+        with:
+          name: ${ISO}
+          path: ${{ steps.upload-directory.outputs.iso-upload-dir }}
+          if-no-files-found: error
+          retention-days: 0
+          compression-level: 0
+          overwrite: true
+
+      - name: Upload ISOs and Checksum to R2
+        shell: bash
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_REGION: auto
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          SOURCE_DIR: ${{ steps.upload-directory.outputs.iso-upload-dir }}
+          RCLONE_CONFIG_R2_ACL: public-read
+          ISO: ${{ steps.build.outputs.iso_name }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone
+          rclone copy $SOURCE_DIR/$ISO R2:silver-ublue
+          rclone copy $SOURCE_DIR/${ISO}.sha256sum R2:silver-ublue
