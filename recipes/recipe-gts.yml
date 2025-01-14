@@ -1,0 +1,361 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
+name: silver-ublue
+# description will be included in the image's metadata
+description: Custom (GTS) silver/ublue build
+
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/ublue-os/silverblue-main
+# Also update: .github/Containerfile-toolbox files/scripts/image-info.sh
+alt-tags:
+  - gts
+image-version: 41 # latest is also supported if you want new updates ASAP
+
+# module configuration, executed in order
+# you can include multiple instances of the same module
+modules:
+  - type: bling # configure what to pull in from ublue-os/bling
+    install:
+      - dconf-update-service  # a service unit that updates the dconf db on boot
+
+  - type: files
+    files:
+      - source: system
+        destination: /  # copies files/system/* (* means everything inside it)
+                        # into your image's root folder /
+
+  - type: containerfile
+    snippets:
+      # k8s tools
+      - COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
+      - COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
+      - COPY --from=cgr.dev/chainguard/ko:latest /usr/bin/ko /usr/bin/ko
+      - COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl
+            /usr/bin/kubectl
+      # - COPY --from=cgr.dev/chainguard/minio:latest /usr/bin/mc /usr/bin/mc
+
+  - type: dnf
+    repos:
+      copr:
+        # - atim/starship
+        - karmab/kcli
+        - kylegospo/bazzite
+        # - ryanabx/cosmic-epoch
+        # - sentry/kernel-blu
+        - ublue-os/staging
+        # - yalter/niri
+      files:
+        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+        - https://terra.fyralabs.com/terra.repo
+    # group-install:
+    #   with-optional: true # install optional packages from group
+    #   packages:
+    #     - cosmic-desktop
+    #     - cosmic-desktop-apps
+    install:
+      install-weak-deps: false
+      packages:
+        # - micro
+        # - starship
+        - android-tools
+        - apptainer
+        - bat
+        - bootc
+        - bpftop
+        - btop
+        - cage # waydroid
+        - chezmoi
+        - cockpit-machines
+        - cockpit-navigator
+        - cockpit-networkmanager
+        - cockpit-ostree
+        - cockpit-podman
+        - cockpit-selinux
+        - cockpit-storaged
+        - cockpit-system
+        - docker-compose
+        - fastfetch
+        - fd-find
+        - gh
+        - git-delta
+        - gnome-shell-extension-logo-menu
+        - gnome-tweaks
+        - GraphicsMagick
+        - iotop-c
+        - kanata
+        - kcli
+        - krb5-workstation
+        - libcec
+        - nautilus-open-any-terminal
+        # - niri
+        - neovim
+        - nmap
+        - nodejs-npm
+        - playerctl
+        - podlet
+        - podman-docker
+        - podman-machine
+        - podman-tui
+        - powertop
+        - printer-driver-brlaser
+        - ptyxis
+        - python3-eyed3
+        - python3-pip
+        - python3-virtualenv
+        - qemu-kvm
+        - rclone
+        - restic
+        - ripgrep
+        - strace
+        - systemd-container
+        - tailscale
+        - terra-release-extras
+        - tio
+        # - waybar # niri
+        - waydroid
+        - wireguard-tools
+        - wl-clipboard
+        - wlr-randr
+        - ykpers
+        - yt-dlp
+        - yubikey-manager
+        - zenity
+        - zoxide
+        - zsh
+    remove:
+      packages:
+        - firefox # default firefox removed in favor of flatpak
+        - firefox-langpacks # langpacks needs to also be removed due to deps
+        - gnome-tour
+    replace:
+      - from-repo: terra-mesa
+        packages:
+          - mesa-dri-drivers
+          - mesa-filesystem
+          - mesa-libEGL
+          - mesa-libGL
+          - mesa-libgbm
+          - mesa-libxatracker
+          - mesa-va-drivers
+          - mesa-vulkan-drivers
+
+  - type: default-flatpaks
+    configurations:
+      - notify: true # Send notification after install is finished (bool)
+        scope: system
+        # If no repo information is specified, Flathub will be used by default
+        install:
+          # - one.ablaze.floorp//lightning  # This is an example of flatpak that
+                                            # has multiple branches in selection
+                                            # (flatpak//branch).
+          # Flatpak runtimes are not supported only normal flatpak applications
+          # Installing different branches of the same Flatpak is not supported.
+          - com.github.johnfactotum.Foliate # Foliate (eBook Reader)
+          - com.mattjakeman.ExtensionManager
+          # - dev.geopjr.Calligraphy # ASCII graphics text
+          - io.github.input_leap.input-leap
+          - io.github.nozwock.Packet
+          - org.gnome.baobab # Disk Usage Analyzer
+          - org.gnome.Calculator
+          - org.gnome.Calendar
+          - org.gnome.Characters
+          - org.gnome.clocks
+          - org.gnome.Connections
+          - org.gnome.Contacts
+          - org.gnome.FileRoller
+          - org.gnome.Firmware
+          - org.gnome.font-viewer
+          - org.gnome.Logs
+          - org.gnome.Loupe # Image Viewer
+          - org.gnome.Maps
+          - org.gnome.meld # Merge Text
+          - org.gnome.Mines
+          - org.gnome.NautilusPreviewer # Sushi
+          - org.gnome.NetworkDisplays
+          - org.gnome.Papers # PDF / Document Viewer
+          - org.gnome.Showtime # Media Player
+          - org.gnome.SimpleScan # Document Scanner
+          - org.gnome.Snapshot # Camera
+          - org.gnome.Sudoku
+          - org.gnome.TextEditor
+          - org.gnome.Weather
+          - page.tesk.Refine
+          ### System Apps
+          - app.drey.KeyRack
+          - com.github.tchx84.Flatseal # Flatpak Permission Manager
+          # - eu.nokun.MirrorHall # Network screen sharing
+          - io.github.flattool.Ignition
+          - io.github.flattool.Warehouse
+          - page.tesk.Refine
+          # - io.github.prateekmedia.appimagepool # AppImage Installer
+          - io.gitlab.adhami3310.Impression # Media Writer
+          - io.missioncenter.MissionCenter
+          - org.cockpit_project.CockpitClient
+          - org.gnome.DejaDup # Backups
+          - sh.loft.devpod # Dev codespaces
+          ### Web Browsers
+          # - com.brave.Browser # Brave
+          - com.google.Chrome
+          # - com.microsoft.Edge
+          # - com.opera.Opera
+          - com.vivaldi.Vivaldi
+          - org.gnome.Epiphany # GNOME Web
+          - org.mozilla.firefox
+          - re.sonny.Junction
+          - re.sonny.Tangram
+          ### Communications
+          - dev.geopjr.Tuba # Mastodon
+          - im.dino.Dino # XMPP Client
+          # - org.gnome.Calls # SIP / Element Client
+          - org.gnome.Fractal # Element Client
+          - org.signal.Signal
+          ### Gaming
+          # - com.heroicgameslauncher.hgl # Heroic Games Launcher
+          - com.usebottles.bottles
+          - com.valvesoftware.Steam
+          - com.valvesoftware.Steam.Utility.steamtinkerlaunch
+          - com.vysp3r.ProtonPlus # Proton Updater for Steam
+          # - de.hummdudel.Libellus # D&D rules
+          # - org.freedesktop.Platform.VulkanLayer.gamescope//24.08
+          # - org.freedesktop.Platform.VulkanLayer.MangoHud//24.08
+          - xyz.armcord.ArmCord # Discord
+          ### Media
+          - com.github.geigi.cozy # Nature/White Noise Sounds
+          - com.github.KRTirtho.Spotube # Spotify / YouTube Music Player
+          - com.github.neithern.g4music # Gapless
+          - de.haeckerfelix.Shortwave # Internet Radio
+          # - de.schmidhuberj.tubefeeder # YouTube Client
+          - io.freetubeapp.FreeTube # YouTube Client
+          - io.github.Pithos # Pandora Client
+          - org.gnome.Decibels # Audio Player
+          - org.videolan.VLC # Media Player
+          # - tv.kodi.Kodi
+          ### Office
+          - com.calibre_ebook.calibre # eBook Editor
+          - com.github.IsmaelMartinez.teams_for_linux
+          - com.slack.Slack
+          - com.toolstack.Folio # Markdown Notes
+          - com.vixalien.sticky
+          - io.github.mrvladus.List # ToDos
+          - md.obsidian.Obsidian
+          - me.proton.Mail
+          - me.proton.Pass
+          - org.libreoffice.LibreOffice
+          # - org.mozilla.Thunderbird
+          # - org.onlyoffice.desktopeditors # OnlyOffice
+          - org.standardnotes.standardnotes
+          - re.sonny.Eloquent
+          - us.zoom.Zoom
+          ### Development
+          - ca.desrt.dconf-editor
+          - dev.zed.Zed
+          - io.github.dvlv.boxbuddyrs # Container Manager
+          - io.podman_desktop.PodmanDesktop
+          - me.iepure.devtoolbox # Convert Units
+          - org.gnome.Boxes # Simple VM Manager
+          - org.gnome.Builder # Gnome IDE
+          - re.sonny.Commit # Text Editor
+          ### Graphics
+          - com.github.maoschanz.drawing
+          # - org.darktable.Darktable
+          - org.gimp.GIMP
+          # - org.inkscape.Inkscape
+          # - org.kde.krita
+          ### Media Production
+          - fr.handbrake.ghb # Handbrake
+          - org.audacityteam.Audacity
+          - org.gnome.gitlab.YaLTeR.VideoTrimmer
+          # - org.kde.kdenlive
+          # - org.olivevideoeditor.Olive
+          # - org.pitivi.Pitivi
+          ### Streaming
+          # - com.feaneron.Boatswain # Boatswain for Streamdeck
+          # - com.obsproject.Studio # OBS Studio
+          # - com.obsproject.Studio.OBSVkCapture # VkCapture (OBS)
+          # - com.obsproject.Studio.Plugin.Gstreamer # Gstreamer (OBS)
+          # - com.obsproject.Studio.Plugin.GStreamerVaapi # Gstreamer VAAPI (OBS)
+          ### Utilities
+          # - com.ekonomikas.merkato # Stock Tracker
+          - com.protonvpn.www # Proton VPN
+          - de.haeckerfelix.Fragments # Bittorrent Client
+          # - org.keepassxc.KeePassXC
+          - xyz.safeworlds.hiit # Exercise Timer
+
+  - type: brew
+
+  - type: gnome-extensions
+    install:
+      - 615 # appindicatorsupport@rgcjonas.gmail.com
+      - 16 # auto-move-windows@gnome-shell-extensions.gcampax.github.com
+      - 6670 # Bluetooth-Battery-Meter@maniacx.github.com
+      - 3193 # blur-my-shell@aunetx
+      - 517 # caffeine@patapon.info
+      - 4839 # clipboard-history@alexsaveau.dev
+      - 307 # dash-to-dock@micxgx.gmail.com
+      - 7065 # tilingshell@ferrarodomenico.com
+      - 3843 # just-perfection-desktop@just-perfection
+      - 7048 # rounded-window-corners@fxgn
+      - 6139 # tailscale@joaophi.github.com
+      - 6784 # wiggle@mechtifs
+
+  - type: gschema-overrides
+    include:
+      - 01-bluefin-folders.gschema.override
+      - 02-bluefin-keybindings.gschema.override
+      - 03-bluefin-gnome.gschema.override
+      - 04-bluefin-ptyxis.gschema.override
+      - 05-bluefin-nautilus-open-any-terminal.gschema.override
+      - 06-bluefin-extensions.gschema.override
+
+  - type: justfiles
+
+  - type: systemd
+    system:
+      enabled:
+        - btrfs-dedup.timer
+        - cec-onboot.service
+        - cec-onpoweroff.service
+        - cec-onsleep.service
+        - fwupd-refresh.timer
+        - libvirt-workaround.service
+        - podman-auto-update.timer
+        - podman.socket
+        - rpm-ostree-countme.service
+        - swtpm-workaround.service
+        - tailscaled.service
+        - ublue-etc-merge.service
+        - ublue-fix-hostname.service
+        - ublue-system-setup.service
+      disabled:
+        - flatpak-add-fedora-repos.service
+        - pmie.service
+        - pmlogger.service
+        - waydroid-container.service
+    user:
+      enabled:
+        - podman-auto-update.timer
+        - ublue-user-setup.service
+
+  - type: script
+    snippets:
+      # create uinput group
+      - "groupadd -r uinput"
+      # install topgrade
+      - "rpm-ostree install python3-pip && pip install --prefix=/usr topgrade"
+      # fix some broken apps libdrm links
+      - "cp -d /usr/lib64/libdrm.so.2 /usr/lib64/libdrm.so"
+    scripts:
+      - fonts.sh        # installs the desired fonts
+      - image-info.sh   # create /usr/share/ublue-os/image-info.json
+      # - initramfs.sh    # rebuild initramfs
+      - misc.sh         # misc tweaks to the system
+      - quadlets.sh     # sets up ptyxis for containers
+
+  # - type: akmods
+    # install:  # List of all available kernel modules & versions/tags are here:
+              # https://github.com/ublue-os/akmods
+      # - evdi
+
+  - type: signing       # this sets up the proper policy & signing files for
+                        # signed images to work fully

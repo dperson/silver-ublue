@@ -1,0 +1,95 @@
+# vim:filetype=dockerfile
+# vim:syntax=dockerfile
+FROM registry.fedoraproject.org/fedora-toolbox:42
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with toolbox or distrobox" \
+      summary="A cloud-native terminal experience" \
+      io.containers.autoupdate="registry" \
+      maintainer="dperson@gmail.com"
+
+COPY .github/extra-packages-toolbox /tmp/extra-packages
+RUN sed -i '/[[]main/ainstall_weak_deps=False' /etc/dnf/dnf.conf && \
+    curl -LSfso /etc/yum.repos.d/negativo17-fedora-multimedia.repo \
+          https://negativo17.org/repos/fedora-multimedia.repo && \
+    sed -i '0,/enabled=0/{s/enabled=0/enabled=1\npriority=90/}' \
+          /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
+    dnf update -y && \
+    dnf autoremove -y && \
+    dnf clean all -y && \
+    grep -v '^#' /tmp/extra-packages | xargs dnf install -y && \
+    URL="https://github.com/89luca89/distrobox/raw/main" && \
+    for i in distrobox-export distrobox-host-exec distrobox-init; do \
+      curl -LSfso "/usr/bin/$i" "$URL/$i"; done && \
+    mv /usr/bin/distrobox-init /usr/bin/entrypoint && \
+    VER="$(sed -n '/host_spawn_version=/s/.*="\(.*\)"/\1/p' \
+          /usr/bin/distrobox-host-exec)" && \
+    URL="https://github.com/1player/host-spawn/releases/download" && \
+    curl -LSfso /usr/bin/host-spawn "$URL/$VER/host-spawn-$(uname -m)" && \
+    for i in distrobox-export distrobox-host-exec entrypoint host-spawn; do \
+      chmod +x "/usr/bin/$i"; done && \
+    echo "chezmoi..." && \
+    F='.[0].assets[]|select(.name|test("inux-amd64$"))|.browser_download_url'&&\
+    URL="https://api.github.com/repos/twpayne/chezmoi/releases" && \
+    curl -LSfso /usr/bin/chezmoi $(curl -LSfs "$URL" | jq -r "$F") && \
+    F="/usr/share/bash-completion/completions" && \
+    URL="https://github.com/twpayne/chezmoi/raw/master/completions" && \
+    curl -LSfso "${F}/chezmoi" "${URL}/chezmoi-completion.bash" && \
+    F="/usr/share/zsh/site-functions" && \
+    curl -LSfso "${F}/_chezmoi" "${URL}/chezmoi.zsh" && \
+    chmod +x /usr/bin/chezmoi && \
+    echo "cosign..." && \
+    F='.[0].assets[]|select(.name|test("x86_64.rpm"))|.browser_download_url' &&\
+    URL="https://api.github.com/repos/sigstore/cosign/releases" && \
+    curl -LSfso /tmp/cosign.rpm $(curl -LSfs "$URL" | jq -r "$F") && \
+    dnf install -y /tmp/cosign.rpm && \
+    echo "eza..." && \
+    F='.[0].assets[]|select(.name|test("x86_64-unknown-linux-gnu.tar.gz"))' && \
+    F+='|.browser_download_url' && \
+    URL="https://api.github.com/repos/eza-community/eza/releases" && \
+    curl -LSfso /tmp/eza.tgz $(curl -LSfs "$URL" | jq -r "$F") && \
+    F='.[0].assets[]|select(.name|test("completions"))|.browser_download_url'&&\
+    curl -LSfso /tmp/eza_completions.tgz $(curl -LSfs "$URL" | jq -r "$F") && \
+    tar -C /tmp -xf /tmp/eza.tgz && \
+    tar -C /tmp -xf /tmp/eza_completions.tgz && \
+    cp /tmp/eza /usr/bin && \
+    cp /tmp/target/completions-*/eza /usr/share/bash-completion/completions && \
+    cp /tmp/target/completions-*/_eza /usr/share/zsh/site-functions && \
+    chmod +x /usr/bin/eza && \
+    rm -rf /tmp/eza* && \
+    echo "mdcat..." && \
+    F='.[0].assets[] | select(.name|test("linux")) | .browser_download_url' && \
+    URL="https://api.github.com/repos/swsnr/mdcat/releases" && \
+    curl -LSfso /tmp/mdcat.tgz $(curl -LSfs "$URL" | jq -r "$F") && \
+    { tar -C /tmp -xf /tmp/mdcat.tgz || :; } && \
+    cp /tmp/mdcat*/mdcat /usr/bin && \
+    cp /tmp/mdcat*/mdcat.1/mdcat.1 /usr/share/man/man1 && \
+    echo "posh..." && \
+    URL="https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest" && \
+    URL="$URL/download/posh-linux-amd64" && \
+    curl -LSfso /usr/bin/oh-my-posh "$URL" && \
+    chmod +x "/usr/bin/oh-my-posh" && \
+    echo "parallel..." && \
+    F='.[0].assets[]|select(.name|test("x86_64.*lin"))|.browser_download_url'&&\
+    URL="https://api.github.com/repos/aaronriekenberg/rust-parallel/releases"&&\
+    curl -LSfso /tmp/parallel.tgz "$(curl -LSfs "${URL}" | jq -r "${F}")" && \
+    tar -C /tmp -xf /tmp/parallel.tgz && \
+    cp /tmp/rust-parallel /usr/bin/parallel && \
+    chmod +x /usr/bin/parallel && \
+    curl -LSfso /usr/share/nvim/runtime/syntax/just.vim \
+          https://github.com/NoahTheDuke/vim-just/raw/main/syntax/just.vim && \
+    rm -rf /tmp/extra-packages /tmp/chez.rpm /tmp/cosign* /tmp/mdcat* \
+          /tmp/*parallel* && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/appman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/distrobox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker-compose && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gext && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gsettings && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/just && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/toolbox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/transactional-update &&\
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
