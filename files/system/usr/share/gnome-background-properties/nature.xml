@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper>
+    <name>Mountain Lake</name>
+    <filename>/usr/share/backgrounds/nature/aurora.jxl</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper>
+    <name>Mountains</name>
+    <filename>/usr/share/backgrounds/nature/mountains.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper>
+    <name>Sea</name>
+    <filename>/usr/share/backgrounds/nature/sea.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper>
+    <name>LA Foothills</name>
+    <filename>/usr/share/backgrounds/nature/xe_foothills.jxl</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper>
+    <name>Sunset</name>
+    <filename>/usr/share/backgrounds/nature/xe_sunset.jxl</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+</wallpapers>
