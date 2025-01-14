@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Feather</name>
+    <filename>/usr/share/backgrounds/abstract/close_up_fluffy_feather.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Flame</name>
+    <filename>/usr/share/backgrounds/abstract/exploding_multi_colored_flame.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Galaxy</name>
+    <filename>/usr/share/backgrounds/abstract/mysterious_glowing_galaxy.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Waves</name>
+    <filename>/usr/share/backgrounds/abstract/vibrant_yellow_blue_waves.jpg</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+</wallpapers>
