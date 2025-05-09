@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.NetworkDisplays]
+Branch=stable
+IsRuntime=false

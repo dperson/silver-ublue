@@ -1,0 +1,11 @@
+blocklists:
+  - block:
+    - app.devsuite.Ptyxis
+    - com.google.AndroidStudio
+    - com.google.ChromeDev
+    - com.microsoft.EdgeDev
+    - com.helix_editor.Helix
+    - io.github.zyedidia.micro
+    - io.neovim.nvim
+    - org.gnu.emacs
+    - org.vim.Vim

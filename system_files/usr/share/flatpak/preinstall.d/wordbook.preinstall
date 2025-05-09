@@ -1,0 +1,3 @@
+[Flatpak Preinstall dev.mufeed.Wordbook]
+Branch=stable
+IsRuntime=false
