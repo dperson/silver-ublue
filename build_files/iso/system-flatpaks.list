@@ -1,0 +1,85 @@
+runtime/org.gtk.Gtk3theme.adw-gtk3
+runtime/org.gtk.Gtk3theme.adw-gtk3-dark
+app/com.github.johnfactotum.Foliate # Foliate (eBook reader)
+app/com.mattjakeman.ExtensionManager
+app/dev.mufeed.Wordbook # Dictionary
+app/io.github.celluloid_player.Celluloid # Media player
+app/io.github.input_leap.input-leap # Share keyboard / mouse
+app/io.github.kolunmi.Bazaar # Flatpak store
+app/io.github.nozwock.Packet
+app/io.github.pwr_solaar.solaar # Logitech devices
+app/it.mijorus.smile # Emoji picker
+app/org.gnome.baobab # Disk usage analyzer
+app/org.gnome.Calculator
+app/org.gnome.Calendar
+app/org.gnome.Characters
+app/org.gnome.clocks
+app/org.gnome.Connections
+app/org.gnome.Contacts
+app/org.gnome.FileRoller
+app/org.gnome.Firmware
+app/org.gnome.font-viewer
+app/org.gnome.Logs
+app/org.gnome.Loupe # Image viewer
+app/org.gnome.Maps
+app/org.gnome.meld # Merge text
+app/org.gnome.Mines
+app/org.gnome.NautilusPreviewer # Sushi
+app/org.gnome.NetworkDisplays
+app/org.gnome.Papers # PDF / document viewer
+app/org.gnome.Showtime
+app/org.gnome.SimpleScan # Document scanner
+app/org.gnome.Snapshot # Camera
+app/org.gnome.Sudoku
+app/org.gnome.TextEditor
+app/org.gnome.Weather
+
+### System Apps
+app/com.github.tchx84.Flatseal # Flatpak permission manager
+app/io.github.flattool.Ignition
+app/io.github.flattool.Warehouse
+app/net.nokyan.Resources # System monitor
+app/io.gitlab.adhami3310.Impression # Media writer
+app/org.cockpit_project.CockpitClient
+app/org.gnome.DejaDup # Backups
+app/sh.loft.devpod # Dev codespaces
+
+### Web Browsers
+app/com.vivaldi.Vivaldi
+app/org.gnome.Epiphany # GNOME Web
+app/org.mozilla.firefox
+app/re.sonny.Junction
+
+### Communications
+app/dev.geopjr.Tuba # Mastodon
+app/im.dino.Dino # XMPP client
+app/org.gnome.Fractal # Matrix client
+app/org.signal.Signal
+
+### Gaming
+app/com.valvesoftware.Steam
+app/com.valvesoftware.Steam.Utility.steamtinkerlaunch
+app/com.vysp3r.ProtonPlus # Proton updater for Steam
+app/io.github.milkshiift.GoofCord # Discord
+
+### Media
+app/com.github.geigi.cozy # Audio book player
+app/com.github.KRTirtho.Spotube # Spotify / YouTube music player
+app/com.github.neithern.g4music # Gapless
+app/com.rafaelmardojai.Blanket # White noise
+app/de.haeckerfelix.Shortwave # Internet radio
+app/info.febvre.Komikku # Manga reader
+app/io.freetubeapp.FreeTube # YouTube client
+app/io.github.Pithos # Pandora client
+app/org.gnome.Decibels # Audio player
+
+### Office
+app/com.github.tenderowl.frog # OCR images / PDFs
+app/org.gnome.gitlab.somas.Apostrophe # Markdown editor
+app/org.libreoffice.LibreOffice
+app/re.sonny.Eloquent
+app/us.zoom.Zoom
+
+### Development
+app/ca.desrt.dconf-editor
+app/com.ranfdev.DistroShelf # Disrobox manager
