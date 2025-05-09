@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gtk.Gtk3theme.adw-gtk3]
+Branch=stable
+IsRuntime=true

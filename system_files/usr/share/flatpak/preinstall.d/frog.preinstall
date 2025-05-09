@@ -1,0 +1,3 @@
+[Flatpak Preinstall com.github.tenderowl.frog]
+Branch=stable
+IsRuntime=false

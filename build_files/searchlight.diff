@@ -1,0 +1,24 @@
+diff --color -burP /usr/share/gnome-shell/extensions/search-light@icedman.github.com/extension.js search-light@icedman.github.com/extension.js
+--- /usr/share/gnome-shell/extensions/search-light@icedman.github.com/extension.js	1969-12-31 19:00:00.000000000 -0500
++++ search-light@icedman.github.com/extension.js	2026-07-06 20:03:56.620799032 -0400
+@@ -169,7 +169,6 @@
+ 
+     Main.layoutManager.addChrome(this.mainContainer, {
+       affectsStruts: false,
+-      affectsInputRegion: true,
+       trackFullscreen: false,
+     });
+ 
+diff --color -burP /usr/share/gnome-shell/extensions/search-light@icedman.github.com/metadata.json search-light@icedman.github.com/metadata.json
+--- /usr/share/gnome-shell/extensions/search-light@icedman.github.com/metadata.json	1969-12-31 19:00:00.000000000 -0500
++++ search-light@icedman.github.com/metadata.json	2026-07-06 20:04:18.492858361 -0400
+@@ -6,7 +6,8 @@
+   "schema-id": "org.gnome.shell.extensions.search-light",
+   "shell-version": [
+     "48",
+-    "49"
++    "49",
++    "50"
+   ],
+   "url": "https://github.com/icedman/search-light",
+   "uuid": "search-light@icedman.github.com",

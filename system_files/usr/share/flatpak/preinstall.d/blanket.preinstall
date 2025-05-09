@@ -1,0 +1,3 @@
+[Flatpak Preinstall com.rafaelmardojai.Blanket]
+Branch=stable
+IsRuntime=false
