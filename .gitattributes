@@ -1,0 +1,76 @@
+*.conf text eol=lf encoding=utf-8
+
+*.container text eol=lf encoding=utf-8
+
+*.css linguist-detectable=true
+*.css linguist-documentation=false
+*.css linguist-language=CSS
+*.css text eol=lf encoding=utf-8
+
+*.defs text eol=lf encoding=utf-8
+
+*.desktop text eol=lf encoding=utf-8
+
+*.icc binary
+
+*.js linguist-detectable=true
+*.js linguist-documentation=false
+*.js linguist-language=JavaScript
+*.js text eol=lf encoding=utf-8
+
+*.json linguist-detectable=true
+*.json linguist-documentation=false
+*.json linguist-language=JSON
+*.json text eol=lf encoding=utf-8
+*.jsonc linguist-detectable=true
+*.jsonc linguist-documentation=false
+*.jsonc linguist-language=JSON
+*.jsonc text eol=lf encoding=utf-8
+
+*.just linguist-detectable=true
+*.just linguist-documentation=false
+*.just linguist-language=Just
+*.just text eol=lf encoding=utf-8
+
+*.jxl binary
+
+*.lecture text eol=lf encoding=utf-8
+
+*.list text eol=lf encoding=utf-8
+
+*.md text eol=lf encoding=utf-8
+
+*.png binary
+
+*.policy text eol=lf encoding=utf-8
+
+*.preset text eol=lf encoding=utf-8
+
+*.pub binary
+
+*.repo text eol=lf encoding=utf-8
+
+*.rules text eol=lf encoding=utf-8
+
+*.service text eol=lf encoding=utf-8
+
+*.sh text eol=lf encoding=utf-8
+
+*.svg text eol=lf encoding=utf-8
+
+*.timer text eol=lf encoding=utf-8
+
+*.toml text eol=lf encoding=utf-8
+
+*.txt text eol=lf encoding=utf-8
+
+*.webp binary
+
+*.xml text eol=lf encoding=utf-8
+
+*.yaml linguist-detectable=true
+*.yaml linguist-language=YAML
+*.yaml text eol=lf encoding=utf-8
+*.yml linguist-detectable=true
+*.yml linguist-language=YAML
+*.yml text eol=lf encoding=utf-8

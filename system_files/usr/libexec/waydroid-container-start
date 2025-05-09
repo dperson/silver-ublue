@@ -1,0 +1,34 @@
+#!/usr/bin/env -S bash
+
+# Import defaults if WIDTH/HEIGHT is not defined by an external script
+if [[ -z "${WAYDROID_WIDTH:-}" ]] || [[ -z "${WAYDROID_HEIGHT:-}" ]]; then
+  source /etc/default/waydroid-launcher
+fi
+
+# Ensure needed props are present
+file="/var/lib/waydroid/waydroid_base.prop"
+
+if ! grep -q "persist.waydroid.udev=true" "${file}"; then
+  sudo sh -c 'echo -e "persist.waydroid.udev=true" >>'"${file}"
+fi
+
+if ! grep -q "persist.waydroid.uevent=true" "${file}"; then
+  sudo sh -c 'echo -e "persist.waydroid.uevent=true" >>'"${file}"
+fi
+
+if [[ -n "$WAYDROID_DENSITY" ]]; then
+  sudo sed -i "s/ro.sf.lcd_density=.*/ro.sf.lcd_density=${WAYDROID_DENSITY}/g" \
+        "${file}"
+fi
+: ${WAYDROID_GRALLOC:=minigbm_gbm_mesa}
+sudo sed -i "s/ro.hardware.gralloc=.*/ro.hardware.gralloc=$WAYDROID_GRALLOC/g" \
+        "${file}"
+
+# Add controller fixes automatically
+if [[ -f "/usr/share/ublue-os/waydroid/Vendor_28de_Product_11ff.kl" ]]; then
+  mkdir -p "/var/lib/waydroid/overlay/system/usr/keylayout"
+  cp "/usr/share/ublue-os/waydroid/Vendor_28de_Product_11ff.kl" \
+        "/var/lib/waydroid/overlay/system/usr/keylayout/"
+fi
+
+sudo systemctl start waydroid-container.service

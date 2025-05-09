@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.gitlab.somas.Apostrophe]
+Branch=stable
+IsRuntime=false
