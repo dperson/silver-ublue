@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.Pithos]
+Branch=stable
+IsRuntime=false
