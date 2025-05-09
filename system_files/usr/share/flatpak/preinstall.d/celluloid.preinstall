@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.celluloid_player.Celluloid]
+Branch=stable
+IsRuntime=false
