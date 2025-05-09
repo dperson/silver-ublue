@@ -1,0 +1,108 @@
+brew "bandwhich" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p bandwhich >/dev/null"
+brew "bat" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p bat >/dev/null"
+brew "btop" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p btop >/dev/null"
+brew "chezmoi" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p chezmoi >/dev/null"
+brew "ctop" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p ctop >/dev/null"
+brew "cyme" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p cyme >/dev/null"
+brew "direnv" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p direnv >/dev/null"
+brew "distrobox" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p distrobox >/dev/null"
+brew "dysk" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p dysk >/dev/null"
+brew "eye-d3" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p eyeD3 >/dev/null"
+brew "eza" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p eza >/dev/null"
+brew "fd" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p fd >/dev/null"
+brew "fortune" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p fortune >/dev/null"
+brew "fzf" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p fzf >/dev/null"
+brew "gh" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p gh >/dev/null"
+brew "glab" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p glab >/dev/null"
+brew "git" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p git >/dev/null"
+brew "git-delta" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p delta >/dev/null"
+brew "gnupg" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p gpg >/dev/null"
+brew "go" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p go >/dev/null"
+brew "graphicsmagick" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p gm >/dev/null"
+brew "id3v2" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p id3v2 >/dev/null"
+brew "ipcalc" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p ipcalc >/dev/null"
+brew "jpegoptim" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p jpegoptim >/dev/null"
+brew "jq" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p jq >/dev/null"
+brew "just" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p just >/dev/null"
+brew "lame" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p lame >/dev/null"
+brew "lazygit" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p lazygit >/dev/null"
+brew "lnav" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p lnav >/dev/null"
+brew "mdcat" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p mdcat >/dev/null"
+brew "mp3gain" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p mp3gain >/dev/null"
+brew "neovim" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p nvim >/dev/null"
+brew "nmap" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p nmap >/dev/null"
+brew "npm" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p npm >/dev/null"
+brew "oh-my-posh" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p oh-my-posh >/dev/null"
+brew "optipng" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p optipng >/dev/null"
+brew "p7zip" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p 7z >/dev/null"
+brew "rust-parallel" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p parallel >/dev/null"
+brew "podman" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p podman >/dev/null"
+brew "ripgrep" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p rg >/dev/null"
+brew "rsync" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p rsync >/dev/null"
+brew "shellcheck" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p shellcheck >/dev/null"
+brew "stress-ng" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p stress-ng >/dev/null"
+brew "tealdeer" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p tldr >/dev/null"
+brew "tmux" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p tmux >/dev/null"
+brew "trash-cli" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p trash-empty >/dev/null"
+brew "tree" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p tree >/dev/null"
+brew "uv" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p uv >/dev/null"
+brew "ykman" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p ykman >/dev/null"
+brew "ykpers" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p ykpersonalize >/dev/null"
+brew "yq" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p yq >/dev/null"
+brew "yt-dlp" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p yt-dlp >/dev/null"
+brew "zoxide" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p zoxide >/dev/null"
+brew "zsh" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p zsh >/dev/null"
