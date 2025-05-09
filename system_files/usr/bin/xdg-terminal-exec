@@ -1,0 +1,18 @@
+#!/usr/bin/env -S bash
+
+if command -v ptyxis >/dev/null 2>&1; then
+  if [[ -z "$*" ]]; then
+    ptyxis --new-window
+  else
+    ptyxis -- "$@"
+  fi
+elif grep '^org\.gnome\.Ptyxis' <<<"$(flatpak list --app --columns=application)"
+then
+  if [[ -z "$*" ]]; then
+    flatpak run org.gnome.Ptyxis --new-window
+  else
+    flatpak run org.gnome.Ptyxis -- "$@"
+  fi
+else
+  gnome-terminal -- "$@"
+fi
