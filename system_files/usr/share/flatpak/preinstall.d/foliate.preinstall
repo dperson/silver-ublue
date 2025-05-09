@@ -1,0 +1,3 @@
+[Flatpak Preinstall com.github.johnfactotum.Foliate]
+Branch=stable
+IsRuntime=false

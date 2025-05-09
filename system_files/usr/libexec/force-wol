@@ -1,0 +1,7 @@
+#!/usr/bin/env -S bash
+INTERFACES=$(ip link show|awk '/state UP/ && /^(en|eth)/ {print $2}'|tr -d ':')
+if [[ -n "$INTERFACES" ]]; then
+  for INTERFACE in $INTERFACES; do
+    /sbin/ethtool -s "$INTERFACE" wol g
+  done
+fi
