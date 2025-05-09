@@ -1,0 +1,26 @@
+brew "dive" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p dive >/dev/null"
+brew "docker-compose" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p docker-compose >/dev/null"
+brew "flux" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p flux >/dev/null"
+brew "grype" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p grype >/dev/null"
+brew "helm" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p helm >/dev/null"
+brew "k9s" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p k9s >/dev/null"
+brew "kind" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p kind >/dev/null"
+brew "ko" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p ko >/dev/null"
+brew "kubernetes-cli" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p kubectl >/dev/null"
+brew "kubectx" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p kubectx >/dev/null"
+brew "minio-mc" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p mc >/dev/null"
+brew "podman" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p podman >/dev/null"
+brew "syft" unless system \
+      "PATH=/bin:/usr/bin:/usr/local/bin type -p syft >/dev/null"

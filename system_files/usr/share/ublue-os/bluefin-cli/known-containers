@@ -1,0 +1,11 @@
+# shellcheck shell=bash
+declare -Ar known_container=(
+    ["toolbox"]="a21a910811504857bea4c96b3d937b93"
+    ["alpine-toolbox"]="276d25e6065b497b96dd57e4f95ff50a"
+    ["Host"]="2871e8027773ae74d6c87a5f659bbc74"
+)
+declare -Ar known_guid=(
+    ["a21a910811504857bea4c96b3d937b93"]="toolbox"
+    ["276d25e6065b497b96dd57e4f95ff50a"]="alpine-toolbox"
+    ["2871e8027773ae74d6c87a5f659bbc74"]="Host"
+)
