@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.DejaDup]
+Branch=stable
+IsRuntime=false
