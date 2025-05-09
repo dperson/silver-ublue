@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.nozwock.Packet]
+Branch=stable
+IsRuntime=false

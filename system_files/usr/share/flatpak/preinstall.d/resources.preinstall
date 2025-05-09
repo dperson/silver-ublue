@@ -1,0 +1,3 @@
+[Flatpak Preinstall net.nokyan.Resources]
+Branch=stable
+IsRuntime=false
