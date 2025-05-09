@@ -1,0 +1,62 @@
+# vim:filetype=dockerfile
+# vim:syntax=dockerfile
+FROM quay.io/toolbx-images/alpine-toolbox:edge
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with toolbox or distrobox" \
+      summary="A cloud-native terminal experience" \
+      io.containers.autoupdate="registry" \
+      maintainer="dperson@gmail.com"
+
+COPY .github/extra-packages-alpine /tmp/extra-packages
+RUN apk update && \
+    apk upgrade && \
+    grep -v '^#' /tmp/extra-packages | xargs apk add && \
+    awk '/^#testing/ {print $2}' /tmp/extra-packages | xargs apk add \
+          --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ && \
+    URL="https://github.com/89luca89/distrobox/raw/main" && \
+    for i in distrobox-export distrobox-host-exec distrobox-init; do \
+      curl -LSfso "/usr/bin/$i" "$URL/$i"; done && \
+    mv /usr/bin/distrobox-init /usr/bin/entrypoint && \
+    VER="$(sed -n '/host_spawn_version=/s/.*="\(.*\)"/\1/p' \
+          /usr/bin/distrobox-host-exec)" && \
+    URL="https://github.com/1player/host-spawn/releases/download" && \
+    curl -LSfso /usr/bin/host-spawn "$URL/$VER/host-spawn-$(uname -m)" && \
+    for i in distrobox-export distrobox-host-exec entrypoint host-spawn; do \
+      chmod +x "/usr/bin/$i"; done && \
+    echo "mdcat..." && \
+    F='.[0].assets[] | select(.name|test("linux")) | .browser_download_url' && \
+    URL="https://api.github.com/repos/swsnr/mdcat/releases" && \
+    curl -LSfso /tmp/mdcat.tgz $(curl -LSfs "$URL" | jq -r "$F") && \
+    { tar -C /tmp -xf /tmp/mdcat.tgz || :; } && \
+    cp /tmp/mdcat*/mdcat /usr/bin && \
+    cp /tmp/mdcat*/mdcat.1/mdcat.1 /usr/share/man/man1 && \
+    echo "posh..." && \
+    URL="https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest" && \
+    URL="$URL/download/posh-linux-amd64" && \
+    curl -LSfso /usr/bin/oh-my-posh "$URL" && \
+    chmod +x "/usr/bin/oh-my-posh" && \
+    echo "parallel..." && \
+    F='.[0].assets[]|select(.name|test("x86_64.*lin"))|.browser_download_url'&&\
+    URL="https://api.github.com/repos/aaronriekenberg/rust-parallel/releases"&&\
+    curl -LSfso /tmp/parallel.tgz "$(curl -LSfs "${URL}" | jq -r "${F}")" && \
+    tar -C /tmp -xf /tmp/parallel.tgz && \
+    cp /tmp/rust-parallel /usr/bin/parallel && \
+    chmod +x /usr/bin/parallel && \
+    curl -LSfso /usr/share/nvim/runtime/syntax/just.vim \
+          https://github.com/NoahTheDuke/vim-just/raw/main/syntax/just.vim && \
+    rm -rf /tmp/extra-packages /tmp/mdcat* /tmp/*parallel* && \
+    ln -frs /bin/sh /usr/bin/sh && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/appman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/distrobox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/docker-compose && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gext && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/gsettings && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/just && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/toolbox && \
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/transactional-update &&\
+    ln -frs /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
