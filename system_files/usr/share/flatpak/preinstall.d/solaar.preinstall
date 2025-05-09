@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.pwr_solaar.solaar]
+Branch=stable
+IsRuntime=false

@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.deskflow.deskflow]
+Branch=stable
+IsRuntime=false

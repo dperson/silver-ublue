@@ -1,0 +1,3 @@
+[Flatpak Preinstall us.zoom.Zoom]
+Branch=stable
+IsRuntime=false
