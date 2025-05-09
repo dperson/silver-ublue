@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.input_leap.input-leap]
+Branch=stable
+IsRuntime=false

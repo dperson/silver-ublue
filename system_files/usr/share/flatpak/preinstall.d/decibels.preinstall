@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.Decibels]
+Branch=stable
+IsRuntime=false
