@@ -1,0 +1,19 @@
+{
+  "policies": {
+    "DisableFirefoxStudies": true,
+    "DisableTelemetry": true,
+    "DontCheckDefaultBrowser": true,
+    "FirefoxHome": {
+      "SponsoredStories": false,
+      "SponsoredTopSites": false,
+    },
+    "GenerativeAI": {
+      "Enabled": false
+    },
+    "SearchEngines": {
+      "Remove": [
+        "Perplexity"
+      ]
+    }
+  }
+}

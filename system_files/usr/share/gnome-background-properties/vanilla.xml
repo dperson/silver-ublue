@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Vanilla</name>
+    <filename>/usr/share/backgrounds/vanilla/vanilla.svg</filename>
+    <filename-dark>/usr/share/backgrounds/vanilla/vanilla-dark.svg</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Orchid</name>
+    <filename>/usr/share/backgrounds/vanilla/orchid.svg</filename>
+    <filename-dark>/usr/share/backgrounds/vanilla/orchid-dark.svg</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#464646</pcolor>
+    <scolor>#464646</scolor>
+  </wallpaper>
+</wallpapers>

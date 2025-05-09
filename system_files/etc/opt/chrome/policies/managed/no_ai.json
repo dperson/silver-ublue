@@ -1,0 +1,15 @@
+{
+  "MetricsReportingEnabled": false,
+  "PrivacySandboxAdMeasurementEnabled": false,
+  "PrivacySandboxAdTopicsEnabled": false,
+  "PrivacySandboxPromptEnabled": false,
+  "PrivacySandboxSiteEnabledAdsEnabled": false,
+  "PromotionalTabsEnabled": false,
+  "SafeBrowsingExtendedReportingEnabled": false,
+  "UrlKeyedAnonymizedDataCollectionEnabled": false,
+  "CreateThemesSettings": 2,
+  "DevToolsGenAiSettings": 2,
+  "GenAILocalFoundationalModelSettings": 1,
+  "HelpMeWriteSettings": 2,
+  "TabOrganizerSettings": 2
+}
