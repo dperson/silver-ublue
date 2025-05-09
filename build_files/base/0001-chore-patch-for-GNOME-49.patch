@@ -1,0 +1,76 @@
+diff --git a/tailscale@joaophi.github.com/extension.js b/tailscale@joaophi.github.com/extension.js
+index 6b6d36c..47813a7 100644
+--- a/tailscale@joaophi.github.com/extension.js
++++ b/tailscale@joaophi.github.com/extension.js
+@@ -82,8 +82,8 @@ const TailscaleDeviceItem = GObject.registerClass(
+ 
+       this.connect('activate', () => onClick());
+ 
+-      const clickAction = this._clickAction ?? (() => {
+-        const action = new Clutter.ClickAction();
++      const clickGesture = this._clickGesture ?? (() => {
++        const action = new Clutter.ClickGesture();
+         this.add_action(action);
+         action.connect('notify::pressed', () => {
+           if (action.pressed)
+@@ -91,16 +91,24 @@ const TailscaleDeviceItem = GObject.registerClass(
+           else
+             this.remove_style_pseudo_class('active');
+         });
+-        action.connect('clicked', () => this.activate(Clutter.get_current_event()));
++        action.connect('recognize', () => this.activate(Clutter.get_current_event()));
+         return action
+       })();
+-      clickAction.connect('long-press', (_action, _actor, state) => {
+-        if (state === Clutter.LongPressState.ACTIVATE) {
+-          return onLongClick();
+-        }
+-        return true;
+-      });
+-      clickAction.enabled = true;
++      clickGesture.enabled = true;
++
++      const longPressGesture = this._longPressGesture ?? (() => {
++        const action = new Clutter.LongPressGesture();
++        this.add_action(action);
++        action.connect('notify::pressed', () => {
++          if (action.pressed)
++            this.add_style_pseudo_class('active');
++          else
++            this.remove_style_pseudo_class('active');
++        });
++        action.connect('recognize', () => onLongClick());
++        return action
++      })();
++      longPressGesture.enabled = true;
+     }
+ 
+     activate(event) {
+@@ -207,7 +215,7 @@ const TailscaleMenuToggle = GObject.registerClass(
+ 
+             St.Clipboard.get_default().set_text(St.ClipboardType.CLIPBOARD, node.ips[0]);
+             St.Clipboard.get_default().set_text(St.ClipboardType.PRIMARY, node.ips[0]);
+-            Main.osdWindowManager.show(-1, icon, _("IP address has been copied to the clipboard"));
++            Main.osdWindowManager.showAll(icon, _("IP address has been copied to the clipboard"));
+             return true;
+           };
+ 
+diff --git a/tailscale@joaophi.github.com/metadata.json b/tailscale@joaophi.github.com/metadata.json
+index 84472d3..3b1e76c 100644
+--- a/tailscale@joaophi.github.com/metadata.json
++++ b/tailscale@joaophi.github.com/metadata.json
+@@ -4,12 +4,9 @@
+   "gettext-domain": "tailscale@joaophi.github.com",
+   "name": "Tailscale QS",
+   "shell-version": [
+-    "45",
+-    "46",
+-    "47",
+-    "48"
++    "49"
+   ],
+   "url": "https://github.com/joaophi/tailscale-gnome-qs",
+   "uuid": "tailscale@joaophi.github.com",
+-  "version": 19
++  "version": "20"
+ }

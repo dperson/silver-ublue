@@ -1,0 +1,66 @@
+#!/usr/bin/env -S bash
+set -eou pipefail
+
+# PCRs
+# ID  Name
+# 0   platform-code
+# 1   platform-config
+# 2   external-code
+# 3   external-config
+# 4   boot-loader-code
+# 5   boot-loader-config
+# 7   secure-boot-policy
+# 9   kernel-initrd
+# 10  ima
+# 11  kernel-boot
+# 12  kernel-config
+# 13  sysexts
+# 14  shim-policy
+# 15  system-identity
+# 16  debug
+# 23  application-support
+PCRS="7+11+14+15"
+
+gum confirm --affirmative="Enable" --negative="Disable" \
+      "Toggle TPM2 auto-unlock"
+EXIT_CODE="$?"
+case "${EXIT_CODE}" in
+  0 | 1) ;;
+  *) exit 2 ;;
+esac
+
+RD_LUKS_UUID="$(xargs -n1 -a /proc/cmdline | grep -Fe rd.luks.uuid |
+      cut -d= -f2 | sed "s/^luks-//")"
+CRYPT_DISK="$(realpath "/dev/disk/by-uuid/${RD_LUKS_UUID}")"
+
+if ! find /dev -iname "${RD_LUKS_UUID:-INVALIDINVALID}" |
+      grep -Fe "${RD_LUKS_UUID}" &>/dev/null; then
+  echo "Could not find LUKS device used to boot system on system mount table."
+  echo "Is your drive encrypted?"
+  exit 3
+fi
+
+if [ "${EXIT_CODE}" == 1 ]; then
+  sudo systemd-cryptenroll --wipe-slot=tpm2 "${CRYPT_DISK}"
+  exit 0
+fi
+
+gum confirm "Would you like to set up a PIN?"
+EXIT_CODE="$?"
+SET_PIN_ARG=""
+case "${EXIT_CODE}" in
+  0) export SET_PIN_ARG="--tpm2-with-pin=yes" ;;
+  1) ;;
+  *) exit 4 ;;
+esac
+
+if sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto \
+      --tpm2-pcrs="$PCRS" ${SET_PIN_ARG} "${CRYPT_DISK}"; then
+  echo "TPM2 LUKS auto-unlock configured for next reboot."
+fi
+
+# References:
+#  https://os.gnome.org/install
+#  https://www.reddit.com/r/Fedora/comments/uo4ufq/any_way_to_get_systemdcryptenroll_working_on/
+#  https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
+# https://fedoramagazine.org/use-systemd-cryptenroll-with-fido-u2f-or-tpm2-to-decrypt-your-disk
