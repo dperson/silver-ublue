@@ -1,10 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
-  ],
+  "extends": ["config:best-practices"],
 
+  // "git-submodules": { "enabled": true },
+
+  // Do not rebase when the default branch is updated
   "rebaseWhen": "never",
+    customManagers: [
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^Justfile$/',
+      ],
+      matchStrings: [
+        '(?<justName>.+?)\\s:=\\s"(?<packageName>\\S+):(?<currentValue>\\S+)@(?<currentDigest>sha256:[a-f0-9]+?)"',
+      ],
+      datasourceTemplate: 'docker',
+    },
+    ],
 
   "packageRules": [
     {
@@ -12,10 +25,19 @@
       "matchUpdateTypes": ["pin", "pinDigest"]
     },
     {
-      "enabled": false,
-      "matchUpdateTypes": ["digest", "pinDigest", "pin"],
-      "matchDepTypes": ["container"],
-      "matchFileNames": [".github/workflows/**.yaml", ".github/workflows/**.yml"],
+      "automerge": true,
+      "matchManagers": ["dockerfile"],
+      "matchUpdateTypes": ["digest"]
     },
+    {
+      "matchUpdateTypes": ["pin", "digest", "pinDigest"],
+      "matchPackageNames": ["ghcr.io/jasonn3/build-container-installer", "ghcr.io/hhd-dev/rechunk"],
+      "automerge": false
+    },
+    {
+      "automerge": true,
+      "matchUpdateTypes": ["digest"],
+      "matchDepNames": ["ghcr.io/ublue-os/silverblue-main"],
+    }
   ]
 }
