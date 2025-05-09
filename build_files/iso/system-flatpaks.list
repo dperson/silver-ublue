@@ -1,0 +1,148 @@
+runtime/org.gtk.Gtk3theme.adw-gtk3
+runtime/org.gtk.Gtk3theme.adw-gtk3-dark
+app/com.github.johnfactotum.Foliate # Foliate (eBook reader)
+app/com.mattjakeman.ExtensionManager
+app/dev.mufeed.Wordbook # Dictionary
+# app/com.mikeasoft.pied # Speech dispatcher voices
+# app/dev.geopjr.Calligraphy # ASCII graphics text
+app/io.github.celluloid_player.Celluloid # Media player
+app/io.github.input_leap.input-leap # Share keyboard / mouse
+app/io.github.kolunmi.Bazaar # Flatpak store
+app/io.github.nozwock.Packet
+app/io.github.pwr_solaar.solaar # Logitech devices
+app/org.gnome.baobab # Disk usage analyzer
+app/org.gnome.Calculator
+app/org.gnome.Calendar
+app/org.gnome.Characters
+app/org.gnome.clocks
+app/org.gnome.Connections
+app/org.gnome.Contacts
+app/org.gnome.FileRoller
+app/org.gnome.Firmware
+app/org.gnome.font-viewer
+app/org.gnome.Logs
+app/org.gnome.Loupe # Image viewer
+app/org.gnome.Maps
+app/org.gnome.meld # Merge text
+app/org.gnome.Mines
+app/org.gnome.NautilusPreviewer # Sushi
+app/org.gnome.NetworkDisplays
+app/org.gnome.Papers # PDF / document viewer
+app/org.gnome.SimpleScan # Document scanner
+app/org.gnome.Snapshot # Camera
+app/org.gnome.Sudoku
+app/org.gnome.TextEditor
+app/org.gnome.Weather
+### System Apps
+app/app.drey.KeyRack
+app/com.github.tchx84.Flatseal # Flatpak permission manager
+# app/eu.nokun.MirrorHall # Network screen sharing
+# app/nl.emphisia.icon # Set custom directory icons
+app/io.github.flattool.Ignition
+app/io.github.flattool.Warehouse
+app/net.nokyan.Resources # System monitor
+app/page.tesk.Refine
+# app/io.github.prateekmedia.appimagepool # AppImage installer
+app/io.gitlab.adhami3310.Impression # Media writer
+# app/io.missioncenter.MissionCenter # System monitor
+app/org.cockpit_project.CockpitClient
+app/org.gnome.DejaDup # Backups
+app/sh.loft.devpod # Dev codespaces
+# app/org.gnome.World.PikaBackup
+# app/org.gnome.World.Secrets # KeepPass(XC) manager
+### Web Browsers
+# app/com.brave.Browser # Brave
+# app/com.google.Chrome
+# app/com.microsoft.Edge
+# app/com.opera.Opera
+app/com.vivaldi.Vivaldi
+# app/io.gitlab.librewolf-community # Firefox fork
+app/org.gnome.Epiphany # GNOME Web
+app/org.mozilla.firefox
+app/re.sonny.Junction
+# app/re.sonny.Tangram
+### Communications
+# app/de.schmidhuberj.Flare # Alternative Signal client
+app/dev.geopjr.Tuba # Mastodon
+app/im.dino.Dino # XMPP client
+# app/im.riot.Riot # Official Matrix client
+# app/org.gajim.Gajim # XMPP client
+# app/org.gnome.Calls # SIP / Matrix client
+app/org.gnome.Fractal # Matrix client
+app/org.signal.Signal
+### Gaming
+# app/com.heroicgameslauncher.hgl # Heroic games launcher
+# app/com.usebottles.bottles
+app/com.valvesoftware.Steam
+app/com.valvesoftware.Steam.Utility.steamtinkerlaunch
+app/com.vysp3r.ProtonPlus # Proton updater for Steam
+# app/de.hummdudel.Libellus # D&D rules
+app/io.github.milkshiift.GoofCord # Discord
+# app/org.freedesktop.Platform.VulkanLayer.gamescope//24.08
+# app/org.freedesktop.Platform.VulkanLayer.MangoHud//24.08
+### Media
+app/com.github.geigi.cozy # Audio book player
+app/com.github.KRTirtho.Spotube # Spotify / YouTube music player
+app/com.github.neithern.g4music # Gapless
+app/com.rafaelmardojai.Blanket # White noise
+app/de.haeckerfelix.Shortwave # Internet radio
+# app/de.schmidhuberj.tubefeeder # YouTube client
+app/info.febvre.Komikku # Manga reader
+app/io.freetubeapp.FreeTube # YouTube client
+app/io.github.Pithos # Pandora client
+app/org.gnome.Decibels # Audio player
+# app/org.videolan.VLC # Media player
+# app/tv.kodi.Kodi
+### Office
+# app/com.calibre_ebook.calibre # eBook editor
+app/com.github.IsmaelMartinez.teams_for_linux
+app/com.github.tenderowl.frog # OCR images / PDFs
+app/com.slack.Slack
+app/com.toolstack.Folio # Markdown notes
+app/com.vixalien.sticky
+app/io.github.mrvladus.List # ToDos
+# app/md.obsidian.Obsidian
+app/me.proton.Mail
+app/me.proton.Pass
+app/org.gnome.gitlab.somas.Apostrophe # Markdown editor
+app/org.libreoffice.LibreOffice
+# app/org.mozilla.Thunderbird
+# app/org.onlyoffice.desktopeditors # OnlyOffice
+# app/org.standardnotes.standardnotes
+app/re.sonny.Eloquent
+app/us.zoom.Zoom
+### Development
+app/ca.desrt.dconf-editor
+app/com.ranfdev.DistroShelf # Disrobox manager
+# app/dev.zed.Zed
+app/io.podman_desktop.PodmanDesktop
+app/me.iepure.devtoolbox # Convert units
+# app/org.gnome.Boxes # Simple VM manager
+# app/org.gnome.Builder # Gnome IDE
+# app/re.sonny.Commit # Text editor
+### Graphics
+app/com.github.maoschanz.drawing
+app/com.github.PintaProject.Pinta
+# app/org.darktable.Darktable
+app/org.gimp.GIMP
+# app/org.inkscape.Inkscape
+# app/org.kde.krita
+### Media Production
+# app/fr.handbrake.ghb # Handbrake
+app/org.audacityteam.Audacity
+app/org.gnome.gitlab.YaLTeR.VideoTrimmer
+# app/org.kde.kdenlive
+# app/org.olivevideoeditor.Olive
+# app/org.pitivi.Pitivi
+### Streaming
+# app/com.feaneron.Boatswain # Boatswain for Streamdeck
+# app/com.obsproject.Studio # OBS studio
+# app/com.obsproject.Studio.OBSVkCapture # VkCapture (OBS)
+# app/com.obsproject.Studio.Plugin.Gstreamer # Gstreamer (OBS)
+# app/com.obsproject.Studio.Plugin.GStreamerVaapi # Gstreamer VAAPI (OBS)
+### Utilities
+# app/com.ekonomikas.merkato # Stock tracker
+app/com.protonvpn.www # Proton VPN
+app/de.haeckerfelix.Fragments # Bittorrent client
+# app/org.keepassxc.KeePassXC
+app/xyz.safeworlds.hiit # Exercise timer
