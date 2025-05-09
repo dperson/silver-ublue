@@ -1,0 +1,3 @@
+[Flatpak Preinstall io.github.milkshiift.GoofCord]
+Branch=stable
+IsRuntime=false

@@ -1,0 +1,86 @@
+yaml-blocklist-paths:
+  - /run/host/etc/bazaar/blocklist.yaml
+
+curated-config-paths:
+  - /run/host/etc/bazaar/curated.yaml
+
+hooks:
+  - id: jetbrains-toolbox
+    when: before-transaction
+    check-appid-regex: ^(com\.jetbrains\..*|com\.google\.AndroidStudio)$
+    dialogs:
+      - id: jetbrains-warning
+        title: >-
+          Install JetBrains IDEs (Host Integration)
+        body-use-markup: true
+        body: >-
+          JetBrains IDEs on Bluefin are managed via <b>JetBrains Toolbox</b> for
+          native host integration, seamless SDK detection, and container
+          toolchain support.
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+          - id: run-ujust
+            string: "Download JetBrains Toolbox"
+            style: suggested
+    shell: exec python3 /run/host/etc/bazaar/hooks.py
+
+  - id: code
+    when: before-transaction
+    check-appid-regex: ^com\.visualstudio\.code$
+    dialogs:
+      - id: code-warning
+        title: >-
+          VS Code like IDEs are not supported in this format
+        body-use-markup: true
+        body: >-
+          Visual Studio Code on Bluefin is installed natively via
+          <b>Homebrew</b> with full terminal access, devcontainer support, and
+          host SDK integration.
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+          - id: download
+            string: "Install via Homebrew"
+            style: suggested
+    shell: exec python3 /run/host/etc/bazaar/hooks.py
+
+  - id: vscodium
+    when: before-transaction
+    check-appid-regex: ^com\.vscodium\.codium$
+    dialogs:
+      - id: vscodium-warning
+        title: >-
+          Install VSCodium (Host Integration)
+        body-use-markup: true
+        body: >-
+          VSCodium on Bluefin is installed natively via <b>Homebrew</b> with full system container access, terminal integration, and devcontainer support.
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+      - id: download
+        string: "Install via Homebrew"
+        style: suggested
+    shell: exec python3 /run/host/etc/bazaar/hooks.py
+
+  - id: zed
+    when: before-transaction
+    check-appid-regex: ^dev\.zed\.Zed.*$
+    dialogs:
+      - id: zed-warning
+        title: >-
+          Install Zed (Host Integration)
+        body: >-
+          Zed on Bluefin is installed natively via <b>Homebrew</b> for
+          optimal performance, GPU acceleration, and direct host SDK access.
+        default-response-id: cancel
+        options:
+          - id: cancel
+            string: "Cancel"
+          - id: download
+            string: "Install via Homebrew"
+            style: suggested
+    shell: exec python3 /run/host/etc/bazaar/hooks.py

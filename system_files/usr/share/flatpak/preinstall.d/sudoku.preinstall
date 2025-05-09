@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.Sudoku]
+Branch=stable
+IsRuntime=false
