@@ -1,0 +1,34 @@
+<background>
+  <starttime>
+    <year>2018</year>
+    <month>1</month>
+    <day>1</day>
+    <hour>5</hour>
+    <minute>40</minute>
+    <second>0</second>
+  </starttime>
+  <!-- It's 05:40, we're showing the day for 14.91666 hours till 20:35 -->
+  <static>
+    <duration>53700.0</duration>
+    <file>/usr/share/backgrounds/bluefin/06-Jun-Day.jxl</file>
+  </static>
+  <!-- Day ended and starts to transition to night at 20:35, the transition -->
+  <!-- lasts for 1 hour, ending at 21:35 -->
+  <transition type="overlay">
+    <duration>3600.0</duration>
+    <from>/usr/share/backgrounds/bluefin/06-Jun-Day.jxl</from>
+    <to>/usr/share/backgrounds/bluefin/06-Jun-Night.jxl</to>
+  </transition>
+  <!-- It's 21:35, we're showing the night for 7.08333 hours till 04:40 -->
+  <static>
+    <duration>25500.0</duration>
+    <file>/usr/share/backgrounds/bluefin/06-Jun-Night.jxl</file>
+  </static>
+  <!-- It's 04:40, and we're starting to transition to day. Transition -->
+  <!-- completes at 05:40 -->
+  <transition type="overlay">
+    <duration>3600.0</duration>
+    <from>/usr/share/backgrounds/bluefin/06-Jun-Night.jxl</from>
+    <to>/usr/share/backgrounds/bluefin/06-Jun-Day.jxl</to>
+  </transition>
+</background>
