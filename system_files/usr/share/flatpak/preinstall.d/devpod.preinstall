@@ -1,0 +1,3 @@
+[Flatpak Preinstall sh.loft.devpod]
+Branch=stable
+IsRuntime=false

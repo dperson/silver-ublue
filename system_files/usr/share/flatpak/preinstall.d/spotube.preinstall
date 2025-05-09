@@ -1,0 +1,3 @@
+[Flatpak Preinstall com.github.KRTirtho.Spotube]
+Branch=stable
+IsRuntime=false
