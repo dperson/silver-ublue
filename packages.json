@@ -1,0 +1,148 @@
+{
+  "all": {
+    "include": {
+      "all": [
+        "adcli",
+        "adw-gtk3-theme",
+        "android-tools",
+        "apptainer",
+        "bat",
+        "bcache-tools",
+        "bpftop",
+        "bpftrace",
+        "btop",
+        "cage",
+        "cockpit-bridge",
+        "cockpit-machines",
+        "cockpit-navigator",
+        "cockpit-networkmanager",
+        "cockpit-ostree",
+        "cockpit-podman",
+        "cockpit-selinux",
+        "cockpit-storaged",
+        "cockpit-system",
+        "cryfs",
+        "davfs2",
+        "docker-compose",
+        "fastfetch",
+        "fd-find",
+        "firewall-config",
+        "fuse-encfs",
+        "fzf",
+        "gh",
+        "git-delta",
+        "git-subtree",
+        "glow",
+        "gnome-shell-extension-gsconnect",
+        "gnome-shell-extension-logo-menu",
+        "gnome-tweaks",
+        "GraphicsMagick",
+        "gum",
+        "ibus-speech-to-text",
+        "ifuse",
+        "input-remapper",
+        "iotop-c",
+        "kcli",
+        "krb5-workstation",
+        "libcec",
+        "libsss_autofs",
+        "libvirt-daemon-driver-storage-disk",
+        "libvirt-nss",
+        "nautilus-gsconnect",
+        "neovim",
+        "nicstat",
+        "nmap",
+        "nodejs-npm",
+        "numactl",
+        "openssh-askpass",
+        "osbuild-selinux",
+        "p7zip",
+        "p7zip-plugins",
+        "playerctl",
+        "podlet",
+        "podman-docker",
+        "podman-machine",
+        "podman-tui",
+        "powertop",
+        "python3-eyed3",
+        "python3-pip",
+        "python3-pyclip",
+        "python3-pygit2",
+        "python3-ramalama",
+        "python3-virtualenv",
+        "qemu-kvm",
+        "rclone",
+        "restic",
+        "ripgrep",
+        "rocm-opencl",
+        "rocm-smi",
+        "setools-console",
+        "sssd-ad",
+        "sssd-krb5",
+        "strace",
+        "sysprof",
+        "tailscale",
+        "tio",
+        "ublue-brew",
+        "ublue-motd",
+        "ublue-polkit-rules",
+        "trace-cmd",
+        "udica",
+        "umoci",
+        "usbip",
+        "uv",
+        "waydroid",
+        "waypipe",
+        "wl-clipboard",
+        "wlr-randr",
+        "ydotool",
+        "yt-dlp",
+        "yt-dlp-bash-completion",
+        "yt-dlp-zsh-completion",
+        "zenity",
+        "zoxide",
+        "zsh"
+      ],
+      "_comment": [
+        "cosmic-desktop",
+        "git-credential-libsecret",
+        "lm_sensors",
+        "niri",
+        "podman-bootc",
+        "rocm-hip",
+        "waybar # niri"
+      ]
+    },
+    "exclude": {
+      "all": [
+        "fedora-bookmarks",
+        "fedora-chromium-config",
+        "fedora-chromium-config-gnome",
+        "firefox",
+        "firefox-langpacks",
+        "gnome-extensions-app",
+        "mesa-libxatracker"
+      ]
+    }
+  },
+  "41": {
+    "include": {
+      "all": []
+    },
+    "exclude": {
+      "all": []
+    }
+  },
+  "42": {
+    "include": {
+      "all": [
+        "complyctl",
+        "fw-ectool",
+        "fw-fanctrl"
+      ]
+    },
+    "exclude": {
+      "all": []
+    }
+  }
+}
