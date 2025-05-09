@@ -1,0 +1,2 @@
+Defaults lecture_file = /etc/sudoers.lecture
+Defaults lecture = always

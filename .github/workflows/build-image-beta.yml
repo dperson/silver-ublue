@@ -1,0 +1,53 @@
+name: Beta Images
+on:
+  merge_group: # Make Beta Images run on merge groups
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - testing
+  #   paths-ignore:
+  #     - "**.md"
+  #     - ".github/workflows/*iso*.yml"
+  #     - ".github/workflows/*validate*.yml"
+  #     - "build_files/iso/**"
+  # push:
+  #   branches:
+  #     - main
+  #     - testing
+  #   paths-ignore:
+  #     - "**.md"
+  #     - ".github/workflows/*iso*.yml"
+  #     - ".github/workflows/*validate*.yml"
+  #     - "build_files/iso/**"
+  # schedule:
+  #   - cron: "50 4 * * 1,2,3,4,5,6" # 04:50 UTC on all but Sundays
+  #   - cron: "50 4 * * 0" # 04:50 UTC on Sundays
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+    contents: read
+    packages: write
+    id-token: write
+
+jobs:
+  build-image-beta:
+    name: Build Beta Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: ["silver-ublue"]
+    with:
+      image_flavors: '["main", "nvidia-open"]'
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: beta
+
+  # generate-release:
+  #   name: Generate Release
+  #   needs: [build-image-beta]
+  #   secrets: inherit
+  #   uses: ./.github/workflows/generate-release.yml
+  #   with:
+  #     stream_name: '["beta"]'
