@@ -1,0 +1,53 @@
+name: GTS Images
+on:
+  merge_group:
+  pull_request:
+    branches:
+      - main
+      - testing
+    paths-ignore:
+      - "**.md"
+      - ".github/workflows/*iso*.yml"
+      - ".github/workflows/*validate*.yml"
+      - "build_files/iso/**"
+  push:
+    branches:
+      - main
+      - testing
+    paths-ignore:
+      - "**.md"
+      - ".github/workflows/*iso*.yml"
+      - ".github/workflows/*validate*.yml"
+      - "build_files/iso/**"
+  schedule:
+    - cron: "50 5 * * 0" # 05:50 UTC on Sundays
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+    contents: read
+    packages: write
+    id-token: write
+
+jobs:
+  build-image-gts:
+    name: Build GTS Images
+    uses: ./.github/workflows/reusable-build.yml
+    secrets: inherit
+    strategy:
+      fail-fast: false
+      matrix:
+        brand_name: [silver-ublue]
+    with:
+      # kernel_pin: 6.14.11-200.fc42.x86_64 ## This is where kernels get pinned
+      image_flavors: '["main", "nvidia-open"]'
+      brand_name: ${{ matrix.brand_name }}
+      stream_name: gts
+
+  # generate_release:
+  #   name: Generate Release
+  #   needs: [build-image-gts]
+  #   secrets: inherit
+  #   uses: ./.github/workflows/generate-release.yml
+  #   with:
+  #     stream_name: '["gts"]'
