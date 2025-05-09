@@ -1,0 +1,4 @@
+# Google
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", GROUP="sudo"
+# Xiaomi
+SUBSYSTEM=="usb", ATTR{idVendor}=="2717", GROUP="sudo"

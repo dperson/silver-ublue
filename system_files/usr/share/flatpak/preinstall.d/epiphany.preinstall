@@ -1,0 +1,3 @@
+[Flatpak Preinstall org.gnome.Epiphany]
+Branch=stable
+IsRuntime=false

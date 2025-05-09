@@ -1,0 +1,3 @@
+[Flatpak Preinstall ca.desrt.dconf-editor]
+Branch=stable
+IsRuntime=false

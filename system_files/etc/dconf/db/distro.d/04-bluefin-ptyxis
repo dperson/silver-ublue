@@ -1,0 +1,21 @@
+# Relocatable schemas are located here in dconf
+# Some Gnome extensions don't ship gschema XML, so their settings also need to
+# go in dconf
+
+[org/gnome/Ptyxis]
+audible-bell=false
+default-columns=100
+default-profile-uuid='1d40da98766afbbb2215e9cb681506a2'
+default-rows=33
+profile-uuids="['1d40da98766afbbb2215e9cb681506a2']"
+
+[org/gnome/Ptyxis/Profiles/1d40da98766afbbb2215e9cb681506a2]
+bold-is-bright=true
+label='Default'
+login-shell=true
+opacity=0.95
+palette='catppuccin-dynamic'
+
+[org/gnome/Ptyxis/Shortcuts]
+close-tab='<Shift><Control>w'
+reset='<Shift><Control>r'
