@@ -1,4 +1,14 @@
+*.iso
+*.iso-CHECKSUM
+flatpaks_with_deps
+flatpak.*
 cosign.key
-_build_*
-output
+*_build
+*_build.*
 _build-*/**
+output
+output.env
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
